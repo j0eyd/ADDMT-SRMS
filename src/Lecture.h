@@ -32,3 +32,5 @@ public:
 	bool studentAttended(const Student& newStudent);
 	bool studentMissed(const Student& oldStudent);
 };
+
+#endif
