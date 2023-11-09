@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+        }
+        #sidebar {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 200px;
+            background-color: white;
+            border-right: 1px solid black;
+            font-weight: bold;
+        }
+        #sidebar .header {
+            background-color: #4692dd;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 20px;
+        }
+        #sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+        #sidebar ul li {
+            padding: 30px 0;
+            text-align: center;
+        }
+        #sidebar ul li a {
+            color: black;
+            text-decoration: none;
+            display: block;
+        }
+        #sidebar .logout {
+            padding: 20px 0;
+            padding-bottom: 30px;
+            text-align: center;
+            border-top: 1px solid black;
+        }
+        #sidebar .logout a {
+            color: black;
+            text-decoration: none;
+            display: block;
+        }
+        #main-content {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="sidebar">
+        <div class="header">
+            <h1>SRMS</h1>
+        </div>
+        <ul>
+            <li><a href="/teacher-dashboard">Dashboard</a></li>
+            <li><a href="/teacher-courses">Courses</a></li>
+            <li><a href="/calendar">Calendar</a></li>
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/settings">Settings</a></li>
+        </ul>
+        <div class="logout">
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+
+    <div id="main-content">
+        {{{body}}}
+    </div>
+
+</body>
+</html>
