@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{pageTitle}}</title>
+    <title>Teacher Dashboard</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,6 +19,7 @@
             width: 200px;
             background-color: white;
             border-right: 1px solid black;
+            font-weight: bold;
         }
         #sidebar .header {
             background-color: #4692dd;
@@ -34,7 +35,7 @@
             flex-grow: 1;
         }
         #sidebar ul li {
-            padding: 15px 0;
+            padding: 30px 0;
             text-align: center;
         }
         #sidebar ul li a {
@@ -43,9 +44,10 @@
             display: block;
         }
         #sidebar .logout {
-            padding: 10px 0;
+            padding: 20px 0;
+            padding-bottom: 30px;
             text-align: center;
-            border-top: 1px solid #ddd;
+            border-top: 1px solid black;
         }
         #sidebar .logout a {
             color: black;
@@ -73,7 +75,7 @@
             <li><a href="/settings">Settings</a></li>
         </ul>
         <div class="logout">
-            <a href="/login">Logout</a>
+            <a href="/logout">Logout</a>
         </div>
     </div>
 
