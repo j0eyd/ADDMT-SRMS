@@ -1,46 +1,12 @@
-#include <iostream>
-#include <vector>
-#include <unordered_map>
-#include "Lecture.cpp"
-#include "Teacher.cpp"
-#include "Student.cpp"
-using namespace std;
-
-class Course
-{
-private:
-	int ID;
-	string name;
-	Teacher* teacher;
-	vector<Lecture*> lectures;
-	vector<Student*> students;
-public:
-	Course(); //creator
-	~Course(); //destructor
-	//accessor methods
-	int getID();
-	string getName();
-	Teacher* getTeacher();
-	vector<Lecture*> getLectures();
-	vector<Student*> getStudents();
-	//mutator methods
-	void setID(int id);
-	void setName(string name);
-	void setTeacher(const Teacher& newTeacher);
-	bool addLecture(const Lecture& newLecture);
-	bool dropLecture(const Lecture& oldLecture);
-	bool addStudent(const Student& newStudent);
-	bool dropStudent(const Student& oldStudent);
-};
+#include "Course.h"
+#include "Lecture.h"
 
 //Creator, Destructor methods
 Course::Course(/* args */)
-{
-}
+{}
 
 Course::~Course()
-{
-}
+{}
 
 //Accessor methods
 int Course::getID() {return ID;}
