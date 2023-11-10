@@ -25,13 +25,13 @@ public:
 	string getName();
 	Course* getAssociatedCourse();
 	Teacher* getTeacher();
-	bool getAttendanceStatus(const Student& student);
+	bool getAttendanceStatus(Student& student);
 	//mutator methods
 	void setID(int id);
 	void setName(string name);
-	void setTeacher(const Teacher& newTeacher);
-	bool studentAttended(const Student& newStudent);
-	bool studentMissed(const Student& oldStudent);
+	void setTeacher(Teacher& newTeacher);
+	bool studentAttended(Student& newStudent);
+	bool studentMissed(Student& oldStudent);
 };
 
 #endif

@@ -14,7 +14,7 @@ private:
 public:
     Student(const std::string& userID, const std::string& username, const std::string& password);
     ~Student();
-
+    
     Grade* getGrade(Course& course);
     Grade* updateGrade(const std::string& gradeValue, double percentage);
     bool updateBio(const std::string& biography);

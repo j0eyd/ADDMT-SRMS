@@ -34,7 +34,7 @@ void Course::setTeacher(Teacher& newTeacher)
 	teacher = &newTeacher;
 }
 
-bool Course::addLecture(const Lecture& newLecture){
+bool Course::addLecture(Lecture& newLecture){
 	//make sure that the lecture isn't already part of the course
 	for(int i = 0; i<lectures.size(); i++){
 		if (lectures[i]->getID() == newLecture.getID()) return false;
@@ -44,7 +44,7 @@ bool Course::addLecture(const Lecture& newLecture){
 	return true;
 }
 
-bool Course::dropLecture(const Lecture& oldLecture){
+bool Course::dropLecture(Lecture& oldLecture){
 	auto it = find(lectures.begin(), lectures.end(), &oldLecture);
 	if (it!=lectures.end()){
 		lectures.erase(it);
@@ -54,7 +54,7 @@ bool Course::dropLecture(const Lecture& oldLecture){
 	return false;
 }
 
-bool Course::addStudent(const Student& newStudent){
+bool Course::addStudent(Student& newStudent){
 	//make sure that the student isn't already part of the course
 	for(int i = 0; i<students.size(); i++){
 		if (students[i]->getID() == newStudent.getID()) return false;
@@ -64,7 +64,7 @@ bool Course::addStudent(const Student& newStudent){
 	return true;
 }
 
-bool Course::dropStudent(const Student& oldStudent){
+bool Course::dropStudent(Student& oldStudent){
 	auto it = find(students.begin(), students.end(), &oldStudent);
 	if (it!=students.end()){
 		students.erase(it);
