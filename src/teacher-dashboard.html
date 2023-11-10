@@ -63,21 +63,7 @@
 </head>
 <body>
 
-    <div id="sidebar">
-        <div class="header">
-            <h1>SRMS</h1>
-        </div>
-        <ul>
-            <li><a href="/teacher-dashboard">Dashboard</a></li>
-            <li><a href="/teacher-courses">Courses</a></li>
-            <li><a href="/students">Students</a></li>
-            <li><a href="/profile">Profile</a></li>
-            <li><a href="/settings">Settings</a></li>
-        </ul>
-        <div class="logout">
-            <a href="/logout">Logout</a>
-        </div>
-    </div>
+    {{> sidebar}}
 
     <div id="main-content">
         {{{body}}}
