@@ -27,11 +27,11 @@ public:
 	//mutator methods
 	void setID(int id);
 	void setName(string name);
-	void setTeacher(const Teacher& newTeacher);
-	bool addLecture(const Lecture& newLecture);
-	bool dropLecture(const Lecture& oldLecture);
-	bool addStudent(const Student& newStudent);
-	bool dropStudent(const Student& oldStudent);
+	void setTeacher(Teacher& newTeacher);
+	bool addLecture(Lecture& newLecture);
+	bool dropLecture(Lecture& oldLecture);
+	bool addStudent(Student& newStudent);
+	bool dropStudent(Student& oldStudent);
 };
 
 #endif

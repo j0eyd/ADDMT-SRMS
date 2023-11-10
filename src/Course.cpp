@@ -29,7 +29,7 @@ void Course::setName(string newName)
 	name = newName;
 }
 
-void Course::setTeacher(const Teacher& newTeacher)
+void Course::setTeacher(Teacher& newTeacher)
 {
 	teacher = &newTeacher;
 }

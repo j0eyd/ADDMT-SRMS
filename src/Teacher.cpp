@@ -3,7 +3,7 @@
 #include <string>
 
 #include "User.h"
-#include "student.h"
+#include "Student.h"
 // #include "Course.h"
 // #include "Grade.h"
 // #include "Attendance.h"
