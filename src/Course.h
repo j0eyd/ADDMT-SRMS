@@ -5,6 +5,7 @@
 #include <vector>
 #include "Teacher.h"
 #include "Student.h"
+#include "Lecture.h"
 using namespace std;
 
 class Course

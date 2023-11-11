@@ -3,9 +3,8 @@
 #include <string>
 
 #include "User.h"
-// #include "Course.h"
+#include "Course.h"
 // #include "Grade.h"
-// #include "Attendance.h"
 
 class Student : public User{
 private:
