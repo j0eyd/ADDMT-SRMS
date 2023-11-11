@@ -30,8 +30,8 @@ public:
 	void setID(int id);
 	void setName(string name);
 	void setTeacher(Teacher& newTeacher);
-	bool studentAttended(Student& newStudent);
-	bool studentMissed(Student& oldStudent);
+	bool addAttendingStudent(Student& newStudent);
+	bool addMissingStudent(Student& oldStudent);
 };
 
 #endif

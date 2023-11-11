@@ -9,16 +9,26 @@ using namespace std;
 
 class Student : public User {
 private:
+    int ID;
+    string firstName;
+    string lastName;
+    string biography;
+    string username;
+    string password;
     vector<Course*> coursesEnrolled;
-    unordered_map<int,Grade*> grades; // Assuming getID() returns an int
-
+    vector<Grade*> grades;
 public:
+    //crea
     Student(const string& userID, const string& username, const string& password);
     ~Student();
-   
-    Grade* newGrade(float points, float outOf, float coeff);
-    Grade* updateGrade(Course& course);
-    bool updateBio(const string& biography);
+    int getID();
+    string getFirstName();
+    string getLastName();
+    string getBiography();
+    string getUsername();
+    string getPassword(); //lol
+    vector<Course*> getCourses();
+    vector<Grade*> getGrades();
 
     // Additional methods as required...
 };
