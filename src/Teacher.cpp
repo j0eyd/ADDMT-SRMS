@@ -4,20 +4,25 @@
 
 #include "User.h"
 #include "Student.h"
-// #include "Course.h"
-// #include "Grade.h"
-// #include "Attendance.h"
 
-class Teacher : public User{
+class Teacher : public User {
 private:
-    std::vector<Course*> courseTaught;
+    string teacherID;
+    string teacherName; 
+    vector<Course*> courseTaught;
+
 public:
-    Teacher(const std::string& userID, const std::string& username, const std::string& password)
-    : User(userID, username, password){
+    Teacher(const std::string& userID, const std::string& username, const std::string& password, 
+            const std::string& tID, const std::string& tName)
+    : User(userID, username, password), teacherID(tID), teacherName(tName) {}
 
-    }
+    // Accessors
+    string getID() const { return teacherID; }
+    string getName() const { return teacherName; }
 
-    void assignGrade(Student& student, Course& course, Grade& grade, Attendance& attendance){
+    // Mutators
+    void setID(const std::string& newID) { teacherID = newID; }
+    void setName(const std::string& newName) { teacherName = newName; }
 
-    }
+    
 };

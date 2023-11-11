@@ -2,30 +2,31 @@
 #include <vector>
 #include <string>
 
+#include "Student.h"
 #include "User.h"
 #include "Course.h"
-// #include "Grade.h"
 
-class Student : public User{
+
+class Student : public User {
 private:
+    std::string studentID; 
+    std::string studentName; 
     std::vector<Course*> coursesEnrolled;
     std::vector<Grade*> gradeList;
+
 public:
-    Student(const std::string& userID, const std::string& username, const std::string& password)
-    : User(userID, username, password){
+    
+    Student(const std::string& userID, const std::string& username, const std::string& password, 
+            const std::string& sID, const std::string& sName)
+    : User(userID, username, password), studentID(sID), studentName(sName) {}
 
-    }
+    // Accessors
+    string getID() const { return studentID; }
+    string getName() const { return studentName; }
 
-    //Method to get grade for a course
-    Grade* getGrade(Course& course){
-        //Search for the grade in the gradeList based on the course 
-        // and return it
-        for(auto& grade : gradeList){
-            if(grade->getCourse() == &course){
-                return grade;
-            }
-        }
-        return nullptr;
-    }
+    // Mutators
+    void setStudentID(const std::string& newID) { studentID = newID; }
+    void setStudentName(const std::string& newName) { studentName = newName; }
+
 };
 

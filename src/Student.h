@@ -3,34 +3,34 @@
 
 #include "User.h"
 #include "Course.h"
+#include "Grade.h"
 #include <vector>
-#include <unordered_map>
 using namespace std;
 
 class Student : public User {
 private:
-    int ID;
-    string firstName;
-    string lastName;
-    string biography;
-    string username;
-    string password;
-    vector<Course*> coursesEnrolled;
-    vector<Grade*> grades;
-public:
-    //crea
-    Student(const string& userID, const string& username, const string& password);
-    ~Student();
-    int getID();
-    string getFirstName();
-    string getLastName();
-    string getBiography();
-    string getUsername();
-    string getPassword(); //lol
-    vector<Course*> getCourses();
-    vector<Grade*> getGrades();
+    std::string studentID;
+    std::string studentName;
+    std::vector<Course*> coursesEnrolled;
+    std::vector<Grade*> gradeList;
 
-    // Additional methods as required...
+public:
+    // Creator
+    Student();
+    Student(const std::string& userID, const std::string& username, const std::string& password, 
+            const std::string& sID, const std::string& sName);
+    // Destructor
+    ~Student();
+
+    // Accessor Methods
+    string getID() const;
+    string getName() const;
+    Grade* getGrade(Course& course);
+
+    // Mutator Methods
+    void setID(const std::string& newID);
+    void setName(const std::string& newName);
+    bool updateBio(const std::string& biography);
 };
 
 #endif // STUDENT_H

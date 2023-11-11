@@ -3,11 +3,11 @@
 User::User(const std::string& uID, const std::string& uName, const std::string& pWord)
     : userID(uID), username(uName), password(pWord) {}
 
-std::string User::getUserID() const {
+string User::getID() const {
     return userID;
 }
 
-std::string User::getUsername() const {
+string User::getName() const {
     return username;
 }
 
