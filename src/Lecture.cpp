@@ -40,16 +40,16 @@ void Lecture::setTeacher(Teacher& newTeacher)
 	teacher = &newTeacher;
 }
 
-bool addAttendingStudent(Student& student){
-	if (attendance.count(&student)>0) return false;
+bool Lecture::addAttendingStudent(Student& newStudent){
+	if (attendance.count(&newStudent)>0) return false;
 	//the method will only reach this point if the student was not already in the set
-	attendance.insert(&student);
+	attendance.insert(&newStudent);
 	return true;
 }
 
-bool addMissingStudent(Student& student){
-	if (attendance.count(&student)==0) return false;
+bool Lecture::addMissingStudent(Student& oldStudent){
+	if (attendance.count(&oldStudent)==0) return false;
 	//the method will only reach this point if the student was already in the set
-	attendance.erase(&student);
+	attendance.erase(&oldStudent);
 	return true;
 }

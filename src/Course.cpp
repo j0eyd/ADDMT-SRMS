@@ -65,7 +65,7 @@ bool Course::addStudent(Student& newStudent){
 }
 
 bool Course::dropStudent(Student& oldStudent){
-	auto it = find(students.begin(), students.end(), &oldStudent);
+	auto it = __find_if(students.begin(), students.end(), &oldStudent);
 	if (it!=students.end()){
 		students.erase(it);
 		return true;

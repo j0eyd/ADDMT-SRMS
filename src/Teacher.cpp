@@ -12,8 +12,8 @@ private:
     vector<Course*> courseTaught;
 
 public:
-    Teacher(const std::string& userID, const std::string& username, const std::string& password, 
-            const std::string& tID, const std::string& tName)
+    Teacher(const string& userID, const string& username, const string& password, 
+            const string& tID, const string& tName)
     : User(userID, username, password), teacherID(tID), teacherName(tName) {}
 
     // Accessors
@@ -21,8 +21,8 @@ public:
     string getName() const { return teacherName; }
 
     // Mutators
-    void setID(const std::string& newID) { teacherID = newID; }
-    void setName(const std::string& newName) { teacherName = newName; }
+    void setID(const string& newID) { teacherID = newID; }
+    void setName(const string& newName) { teacherName = newName; }
 
     
 };

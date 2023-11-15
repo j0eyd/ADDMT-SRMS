@@ -1,32 +1,36 @@
-#include <iostream>
-#include <vector>
-#include <string>
-
 #include "Student.h"
-#include "User.h"
-#include "Course.h"
 
+Student::Student() {}
 
-class Student : public User {
-private:
-    std::string studentID; 
-    std::string studentName; 
-    std::vector<Course*> coursesEnrolled;
-    std::vector<Grade*> gradeList;
-
-public:
-    
-    Student(const std::string& userID, const std::string& username, const std::string& password, 
-            const std::string& sID, const std::string& sName)
+Student::Student(const int& userID, const string& username, const string& password, 
+            const int& sID, const string& sName)
     : User(userID, username, password), studentID(sID), studentName(sName) {}
 
-    // Accessors
-    string getID() const { return studentID; }
-    string getName() const { return studentName; }
+Student::~Student() {
+}
 
-    // Mutators
-    void setStudentID(const std::string& newID) { studentID = newID; }
-    void setStudentName(const std::string& newName) { studentName = newName; }
+int Student::getID() const {
+    return ID;
+}
 
-};
+string Student::getName() const {
+    return username;
+}
 
+vector<Grade*> Student::getGrades(Course& course) {
+    return gradeList;
+}
+
+// Mutator Methods
+void Student::setID(const int& newID) {
+    studentID = newID;
+}
+
+void Student::setName(const string& newName) {
+    studentName = newName;
+}
+
+bool Student::updateBio(const string& newBiography) {
+    Biography = newBiography;
+    return true;
+}

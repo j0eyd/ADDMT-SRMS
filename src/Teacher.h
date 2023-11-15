@@ -10,14 +10,14 @@ using namespace std;
 
 class Teacher : public User {
 private:
-    std::string teacherID;
-    std::string teacherName;
-    std::vector<Course*> courseTaught;
+    int teacherID;
+    string teacherName;
+    vector<Course*> coursesTaught;
 
 public:
     // Creator
     Teacher();
-    Teacher(const std::string& userID, const std::string& username, const std::string& password);
+    Teacher(const string& ID, const string& username, const string& password);
     // Destructor
     ~Teacher();
 
@@ -26,8 +26,8 @@ public:
     string getName() const;
 
     // Mutator Methods
-    void setID(const std::string& newID);
-    void setName(const std::string& newName);
+    void setID(const string& newID);
+    void setName(const string& newName);
 
     void assignGrade(Student& student, Course& course, Grade& grade, Attendance& attendance);
     void addCourse(Course&);

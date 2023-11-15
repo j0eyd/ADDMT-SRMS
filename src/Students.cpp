@@ -9,15 +9,15 @@
 
 class Student : public User {
 private:
-    std::string studentID; 
-    std::string studentName; 
-    std::vector<Course*> coursesEnrolled;
-    std::vector<Grade*> gradeList;
+    string studentID; 
+    string studentName; 
+    vector<Course*> coursesEnrolled;
+    vector<Grade*> gradeList;
 
 public:
     
-    Student(const std::string& userID, const std::string& username, const std::string& password, 
-            const std::string& sID, const std::string& sName)
+    Student(const string& userID, const string& username, const string& password, 
+            const string& sID, const string& sName)
     : User(userID, username, password), studentID(sID), studentName(sName) {}
 
     // Accessors
@@ -25,8 +25,8 @@ public:
     string getName() const { return studentName; }
 
     // Mutators
-    void setStudentID(const std::string& newID) { studentID = newID; }
-    void setStudentName(const std::string& newName) { studentName = newName; }
+    void setStudentID(const string& newID) { studentID = newID; }
+    void setStudentName(const string& newName) { studentName = newName; }
 
 };
 

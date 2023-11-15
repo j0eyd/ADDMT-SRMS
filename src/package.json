@@ -1,7 +1,7 @@
 {
   "name": "student-records-management-system",
   "version": "1.0.0",
-  "description": "web application for managing student and teacher records",
+  "description": "application for managing student and teacher records",
   "main": "app.js",
   "directories": {
     "doc": "doc"

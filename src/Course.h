@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include "Teacher.h"
 #include "Student.h"
 #include "Lecture.h"
