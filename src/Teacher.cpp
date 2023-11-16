@@ -1,28 +1,52 @@
-#include <iostream>
-#include <vector>
-#include <string>
+#include "Teacher.h"
 
-#include "User.h"
-#include "Student.h"
+Teacher::Teacher() {}
 
-class Teacher : public User {
-private:
-    string teacherID;
-    string teacherName; 
-    vector<Course*> courseTaught;
+Teacher::Teacher(const int& ID, const string& username, const string& password,
+            const string& firstName, const string& coursesTaught,
+            vector<Course*> courses)
+    : User(ID, username, password, firstName, lastName), coursesTaught(courses) {}
 
-public:
-    Teacher(const string& userID, const string& username, const string& password, 
-            const string& tID, const string& tName)
-    : User(userID, username, password), teacherID(tID), teacherName(tName) {}
+Teacher::~Teacher() {}
 
-    // Accessors
-    string getID() const { return teacherID; }
-    string getName() const { return teacherName; }
 
-    // Mutators
-    void setID(const string& newID) { teacherID = newID; }
-    void setName(const string& newName) { teacherName = newName; }
+vector<Course*> Teacher::getCoursesTaught() const{
+    return coursesTaught;
+}
 
-    
-};
+bool Teacher::getStudentLectureAttendance(const Lecture& lecture, Student& student) const{
+    return lecture.getAttendanceStatus(student);
+}
+
+vector<Grade*> Teacher::getStudentCourseGrades(const Student& student,
+        Course& course) const{
+    return student.getCourseGrades(course);
+}
+
+bool Teacher::addCourseTaught(Course& course){
+    auto it = find(coursesTaught.begin(), coursesTaught.end(), &course);
+    if (it!=coursesTaught.end()) return false; //course already present
+    coursesTaught.push_back(&course);
+    return true;
+}
+
+bool Teacher::dropCourseTaught(Course& course){
+    auto it = find(coursesTaught.begin(), coursesTaught.end(), &course);
+    if (it==coursesTaught.end()) return false; //course already absent
+    coursesTaught.erase(it);
+    return true;
+}
+
+bool Teacher::addLecturePresentStudent(Lecture& lecture, Student& student){
+    return lecture.addAttendingStudent(student);
+}
+
+bool Teacher::dropLectureMissingStudent(Lecture& lecture, Student& student){
+    return lecture.addMissingStudent(student);
+}
+
+void Teacher::addStudentGrade(Student& student, Grade& grade){
+    student.
+}
+void Teacher::modifyStudentGrade(Student& student, Grade& newGrade);
+void Teacher::dropStudentGrade(Student& student, Grade& oldGrade);

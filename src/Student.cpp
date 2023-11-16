@@ -2,35 +2,59 @@
 
 Student::Student() {}
 
-Student::Student(const int& userID, const string& username, const string& password, 
-            const int& sID, const string& sName)
-    : User(userID, username, password), studentID(sID), studentName(sName) {}
+Student::Student(const int& ID, const string& username, const string& password, 
+            const string& firstName, const string& lastName, vector<Course*> courses,
+            vector<Grade*> grades)
+    : User(ID, username, password, firstName, lastName), coursesEnrolled(courses),
+        gradeList(grades) {}
 
 Student::~Student() {
 }
 
-int Student::getID() const {
-    return ID;
+vector<Grade*> Student::getCourseGrades(Course& course) const{
+    vector<Grade*> result;
+    for (Grade* grade : gradeList){
+        if (grade->getCourse() == &course) result.push_back(grade);
+    }
+    return result;
 }
 
-string Student::getName() const {
-    return username;
-}
+vector<Course*> Student::getCoursesEnrolled() const {return coursesEnrolled;}
 
-vector<Grade*> Student::getGrades(Course& course) {
-    return gradeList;
-}
-
+string Student::getBiography() const {return biography;}
 // Mutator Methods
-void Student::setID(const int& newID) {
-    studentID = newID;
+
+bool Student::setBiography(const string& newBiography){
+    if (biography==newBiography) return false;
+    biography = newBiography;
+    return true;
 }
 
-void Student::setName(const string& newName) {
-    studentName = newName;
+bool Student::addEnrolledCourse(Course& course){
+    auto it = find(coursesEnrolled.begin(), coursesEnrolled.end(), &course);
+    if (it!=coursesEnrolled.end()) return false; //course already present
+    coursesEnrolled.push_back(&course);
+    return true;
 }
 
-bool Student::updateBio(const string& newBiography) {
-    Biography = newBiography;
+bool Student::dropEnrolledCourse(Course& course){
+    auto it = find(coursesEnrolled.begin(), coursesEnrolled.end(), &course);
+    if (it==coursesEnrolled.end()) return false; //course already absent
+    coursesEnrolled.erase(it);
+    return true;
+}
+
+bool Student::addGrade(Grade& grade){
+    auto it = find(gradeList.begin(), gradeList.end(), &grade);
+    if (it!=gradeList.end()) return false; //grade already present
+    gradeList.push_back(&grade);
+    grade.setStudent(*this);
+    return true;
+}
+
+bool Student::dropGrade(Grade& grade){
+    auto it = find(gradeList.begin(), gradeList.end(), &grade);
+    if (it==gradeList.end()) return false; //grade already absent
+    gradeList.erase(it);
     return true;
 }

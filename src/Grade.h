@@ -8,6 +8,7 @@ class Grade{
 	private:
 		Student* student;
 		Course* course;
+		string identifier;
 		float points;
 		float outOf;
 		float value;
@@ -19,17 +20,19 @@ class Grade{
 		//Accessor methods
 		Student* getStudent();
 		Course* getCourse();
+		string getIdentifier();
 		float getPoints();
 		float getOutOf();
 		float getValue();
 		float getCoeff();
 		//Mutator methods
 		void setStudent(Student& student);
-		void setCourse(Course& course);
-		void setPoints(float newPoints);
-		void setOutOf(float newOutOf);
-		void setValue();
-		void setCoeff(float newCoeff);
+		void setCourse(const Course& course);
+		void setIdentifier(const string& newIdentifier);
+		void setPoints(const float& newPoints);
+		void setOutOf(const float& newOutOf);
+		void setValue(const float& newValue);
+		void setCoeff(const float& newCoeff);
 };
 
 #endif

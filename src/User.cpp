@@ -2,8 +2,10 @@
 
 User::User(){}
 
-User::User(const int& ID, const string& username, const string& password)
-    : ID(ID), username(username), password(password) {}
+User::User(const int& ID, const string& username, const string& password,
+    const string& firstName, const string& lastName)
+    : ID(ID), username(username), password(password), firstName(firstName),
+        lastName(lastName) {}
 
 User::~User(){}
 

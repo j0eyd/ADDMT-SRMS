@@ -21,11 +21,11 @@ public:
 	Lecture(); //creator
 	~Lecture(); //destructor
 	//accessor methods
-	int getID();
-	string getName();
-	Course* getAssociatedCourse();
-	Teacher* getTeacher();
-	bool getAttendanceStatus(Student& student);
+	int getID() const;
+	string getName() const;
+	Course* getAssociatedCourse() const;
+	Teacher* getTeacher() const;
+	bool getAttendanceStatus(Student& student) const;
 	//mutator methods
 	void setID(int id);
 	void setName(string name);

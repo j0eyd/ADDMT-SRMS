@@ -9,17 +9,17 @@ Lecture::~Lecture()
 {}
 
 //Accessor methods
-int Lecture::getID() {return ID;}
+int Lecture::getID() const {return ID;}
 
-string Lecture::getName() {return name;}
+string Lecture::getName() const {return name;}
 
-Course* Lecture::getAssociatedCourse() {return associatedCourse;}
+Course* Lecture::getAssociatedCourse() const {return associatedCourse;}
 
-Teacher* Lecture::getTeacher() {return teacher;}
+Teacher* Lecture::getTeacher() const {return teacher;}
 
-bool Lecture::getAttendanceStatus(Student& student){
+bool Lecture::getAttendanceStatus(Student& student) const{
 	//if the pointer to that student is in the hash_set,
-	//had been counted as present previously.
+	//had been noted as present previously.
 	return attendance.count(&student)>0;
 }
 

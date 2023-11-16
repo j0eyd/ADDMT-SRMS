@@ -5,35 +5,37 @@
 #include "Student.h"
 #include "Course.h"
 #include "Grade.h"
-#include <vector>
-using namespace std;
 
 class Teacher : public User {
-private:
-    int teacherID;
-    string teacherName;
+protected:
     vector<Course*> coursesTaught;
-
+    //as well as all attributes from User
 public:
-    // Creator
+    // Creators
     Teacher();
-    Teacher(const string& ID, const string& username, const string& password);
+    Teacher(const int& ID, const string& username, const string& password, 
+            const string& firstName, const string& lastName,
+            vector<Course*> coursesTaught);
+
     // Destructor
-    ~Teacher();
+    virtual ~Teacher();
 
-    // Accessor Methods
-    string getID() const;
-    string getName() const;
+    // All user-related accessors and mutators are inherited from user
+    //Accessors
+    vector<Course*> getCoursesTaught() const;
+    bool getStudentLectureAttendance(const Lecture& lecture,
+        Student& student) const;
+    vector<Grade*> getStudentCourseGrades(const Student& student,
+        Course& course) const;
 
-    // Mutator Methods
-    void setID(const string& newID);
-    void setName(const string& newName);
-
-    void assignGrade(Student& student, Course& course, Grade& grade, Attendance& attendance);
-    void addCourse(Course&);
-    void removeCourse(Course&);
-    void viewCourseGrades(Course&);
-    
+    //Mutators
+    bool addCourseTaught(Course& course);
+    bool dropCourseTaught(Course& course);
+    bool addLecturePresentStudent(Lecture& lecture, Student& student);
+    bool dropLectureMissingStudent(Lecture& lecture, Student& student);
+    void addStudentGrade(Student& student, Grade& grade);
+    void modifyStudentGrade(Student& student, Grade& newGrade);
+    void dropStudentGrade(Student& student, Grade& oldGrade);
 };
 
 #endif // TEACHER_H

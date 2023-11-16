@@ -2,6 +2,8 @@
 #define USER_H
 
 #include <string>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
 class User {
@@ -14,7 +16,8 @@ protected:
 public:
     // Constructors
     User();
-    User(const int& ID, const string& uName, const string& pWord);
+    User(const int& ID, const string& username, const string& password,
+        const string& firstName, const string& lastName);
     // Destructor
     virtual ~User(); // Virtual if inheritance is used
 
