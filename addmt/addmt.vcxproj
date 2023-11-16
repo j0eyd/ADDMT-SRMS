@@ -111,6 +111,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\Admin.cpp" />
+    <ClCompile Include="..\src\Course.cpp" />
+    <ClCompile Include="..\src\Grade.cpp" />
+    <ClCompile Include="..\src\Lecture.cpp" />
+    <ClCompile Include="..\src\Student.cpp" />
+    <ClCompile Include="..\src\Students.cpp" />
+    <ClCompile Include="..\src\Teacher.cpp" />
+    <ClCompile Include="..\src\User.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\Admin.h" />
+    <ClInclude Include="..\src\Course.h" />
+    <ClInclude Include="..\src\Grade.h" />
+    <ClInclude Include="..\src\Lecture.h" />
+    <ClInclude Include="..\src\Student.h" />
+    <ClInclude Include="..\src\Teacher.h" />
+    <ClInclude Include="..\src\User.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
