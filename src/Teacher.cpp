@@ -45,8 +45,16 @@ bool Teacher::dropLectureMissingStudent(Lecture& lecture, Student& student){
     return lecture.addMissingStudent(student);
 }
 
-void Teacher::addStudentGrade(Student& student, Grade& grade){
-    student.
+bool Teacher::addStudentGrade(Student& student, Grade& grade){
+    return student.addGrade(grade);
 }
-void Teacher::modifyStudentGrade(Student& student, Grade& newGrade);
-void Teacher::dropStudentGrade(Student& student, Grade& oldGrade);
+
+bool Teacher::modifyStudentGrade(const Student& student, Grade& grade,
+        const float& newIdentifier, const float& newPoints, const float& newOutOf,
+        const float& newCoeff){
+    return ;
+}
+
+bool Teacher::dropStudentGrade(Student& student, Grade& oldGrade){
+    student.dropGrade(oldGrade);
+}

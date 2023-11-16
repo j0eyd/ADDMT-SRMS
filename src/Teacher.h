@@ -33,9 +33,11 @@ public:
     bool dropCourseTaught(Course& course);
     bool addLecturePresentStudent(Lecture& lecture, Student& student);
     bool dropLectureMissingStudent(Lecture& lecture, Student& student);
-    void addStudentGrade(Student& student, Grade& grade);
-    void modifyStudentGrade(Student& student, Grade& newGrade);
-    void dropStudentGrade(Student& student, Grade& oldGrade);
+    bool addStudentGrade(Student& student, Grade& grade);
+    bool modifyStudentGrade(const Student& student, Grade& grade,
+        const float& newIdentifier, const float& newPoints, const float& newOutOf,
+        const float& newCoeff);
+    bool dropStudentGrade(Student& student, Grade& oldGrade);
 };
 
 #endif // TEACHER_H
