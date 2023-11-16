@@ -1,7 +1,4 @@
-#include <Windows.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
+#include "LazyHeader.h"
 
 int main(int argc, char* argv[])
 {
@@ -14,7 +11,7 @@ int main(int argc, char* argv[])
 	fgetc(stdin);
 	LARGE_INTEGER End;
 	QueryPerformanceCounter(&End);
-	float Result = (float)((double)(End.QuadPart - Start.QuadPart) / (double)PerfCounterFreq);
+	real32 Result = (real32)((real64)(End.QuadPart - Start.QuadPart) / (real64)PerfCounterFreq);
 	printf("%e", Result);
 	fgetc(stdin);
 

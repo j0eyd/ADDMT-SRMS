@@ -113,6 +113,9 @@
   <ItemGroup>
     <ClCompile Include="TempMain.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="LazyHeader.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
