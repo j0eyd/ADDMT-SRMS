@@ -9,6 +9,8 @@ protected:
     int ID;
     string username;
     string password;
+    string firstName;
+    string lastName;
 public:
     // Constructors
     User();
@@ -19,11 +21,16 @@ public:
     // Accessor Methods
     int getID() const;
     string getUsername() const;
+    string getPassword() const;
+    string getFirstName() const;
+    string getLastName() const;
 
     // Mutator Methods
+    void setID(const int& newID);
+    void setUsername(const string& newUsername);
     void setPassword(const string& newPassword);
-    void setUsername(string newUsername);
-    void setID(int ID);
+    void setFirstName(const string& newFirstName);
+    void setLastName(const string& newLastName);
 };
 
 #endif // USER_H
