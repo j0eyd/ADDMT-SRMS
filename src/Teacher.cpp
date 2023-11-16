@@ -50,9 +50,14 @@ bool Teacher::addStudentGrade(Student& student, Grade& grade){
 }
 
 bool Teacher::modifyStudentGrade(const Student& student, Grade& grade,
-        const float& newIdentifier, const float& newPoints, const float& newOutOf,
+        const string& newIdentifier, const float& newPoints, const float& newOutOf,
         const float& newCoeff){
-    return ;
+    if (grade.getStudent()!=&student) return false; //trying to modify the wrong grade
+    grade.setIdentifier(newIdentifier);
+    grade.setPoints(newPoints);
+    grade.setOutOf(newOutOf);
+    grade.setCoeff(newCoeff);
+    return true;
 }
 
 bool Teacher::dropStudentGrade(Student& student, Grade& oldGrade){

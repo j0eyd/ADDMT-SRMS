@@ -35,7 +35,7 @@ public:
     bool dropLectureMissingStudent(Lecture& lecture, Student& student);
     bool addStudentGrade(Student& student, Grade& grade);
     bool modifyStudentGrade(const Student& student, Grade& grade,
-        const float& newIdentifier, const float& newPoints, const float& newOutOf,
+        const string& newIdentifier, const float& newPoints, const float& newOutOf,
         const float& newCoeff);
     bool dropStudentGrade(Student& student, Grade& oldGrade);
 };
