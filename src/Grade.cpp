@@ -24,6 +24,8 @@ float Grade::getValue() const {return value;}
 
 float Grade::getCoeff() const {return coeff;}
 
+string Grade::getIdentifier() const{ return identifier; }
+
 void Grade::setStudent(Student& newStudent) {student = &newStudent;}
 
 void Grade::setCourse(Course& newCourse) {course = &newCourse;}

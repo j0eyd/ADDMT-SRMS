@@ -151,7 +151,7 @@ void showTeacherMenu(Teacher* teacher) {
             case 3: {
                 // we need to select a student and grade first
                 Student* selectedStudent = nullptr; // Set to a valid student
-                Course* selectedCourse; // Set to a valid course
+                // Course* selectedCourse; // Set to a valid course
                 Grade* gradeToModify = nullptr; // Set to the grade to modify
                 string newIdentifier;
                 float newPoints, newOutOf, newCoeff;

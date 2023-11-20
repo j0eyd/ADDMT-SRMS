@@ -19,6 +19,11 @@ Teacher* Course::getTeacher() {return teacher;}
 
 vector<Lecture*> Course::getLectures() {return lectures;}
 
+vector<Student*> Course::getStudents() {
+    return students;
+}
+
+
 //Mutator methods
 
 void Course::setID(int newID)
