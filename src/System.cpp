@@ -6,7 +6,7 @@ std::vector<User*> usersData;
 void initializeSystem() {
     using namespace std;
     
-    ifstream inFile("data\temp.txt");
+    ifstream inFile("temp.txt");
     if (!inFile.is_open()) { // Correct usage to check if the file is open
         cerr << "Unable to open file data/temp.txt" << endl;
         return;
