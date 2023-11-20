@@ -38,7 +38,7 @@ void Course::setTeacher(Teacher& newTeacher)
 
 bool Course::addLecture(Lecture& newLecture){
 	//make sure that the lecture isn't already part of the course
-	for(int i = 0; i<lectures.size(); i++){
+	for(size_t i = 0; i<lectures.size(); i++){
 		if (lectures[i]->getID() == newLecture.getID()) return false;
 	}
 	//add the lecture to the course
@@ -58,7 +58,7 @@ bool Course::dropLecture(Lecture& oldLecture){
 
 bool Course::addStudent(Student& newStudent){
 	//make sure that the student isn't already part of the course
-	for(int i = 0; i<students.size(); i++){
+	for(size_t i = 0; i<students.size(); i++){
 		if (students[i]->getID() == newStudent.getID()) return false;
 	}
 	//add the student to the course

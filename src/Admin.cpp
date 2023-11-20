@@ -6,7 +6,7 @@
 
 class Admin : public User{
 public:
-    Admin::Admin(const int& ID, const std::string& username, const std::string& password,
+    Admin(const int& ID, const std::string& username, const std::string& password,
         const std::string& firstName, const std::string& lastName)
         : User(ID, username, password, firstName, lastName) {}
 

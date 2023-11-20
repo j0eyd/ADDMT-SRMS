@@ -4,9 +4,6 @@
 #include "User.h"
 #include "Student.h"
 #include "Teacher.h"
-// #include "Course.h"
-// #include "Grade.h"
-// #include "Attendance.h"
 #include <vector>
 
 class Admin : public User {
