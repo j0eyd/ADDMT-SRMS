@@ -1,0 +1,4 @@
+1,alice,pa$$word1,Alice,Smith,Student,"Enjoys studying biology and chemistry"
+2,bob,s3cur3,Bob,Brown,Teacher,"BIO101;CHEM201"
+3,carol,topsecret,Carol,Jones,Student,"Interested in computer science and physics"
+4,dave,password,Dave,White,Teacher,"CSE101;PHY202"

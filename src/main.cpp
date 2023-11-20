@@ -8,34 +8,57 @@
 #include "Lecture.h"
 #include "Grade.h"
 #include "User.h"
-using namespace std;
+#include "System.h" 
 
 int main() {
-    // test
-    Admin admin("admin1", "adminuser", "adminpassword");
-    Student student(1, "studentuser", "studentpassword", "John", "Doe", std::vector<Course*>(), std::vector<Grade*>());
-    Teacher teacher(2, "teacheruser", "teacherpassword", "Jane", "Smith", std::vector<Course*>());
+    // Initialize the system (load users)
+    initializeSystem();
 
-    Course course;
-    Lecture lecture;
+    while (true) {
+        std::string username;
+        std::string password;
 
-    // Example of creating a Grade
-    Grade grade(student, course, "grade1", 95.0, 100.0, 95.0, 1.0);
+        std::cout << "Enter username: ";
+        std::cin >> username;
+        std::cout << "Enter password: ";
+        std::cin >> password;
 
-    while(true){
-        string username;
-        string password;
-        cout << "Enter username: ";
-        cin >> username;
-        cout << "Enter password: ";
-        cin >> password;
+        // Check if username and password matched
+        User* user = authenticateUser(username, password);
 
-        //Check if username and password matched
-        // code: ...
+        if (user) {
+            // Determine the role of the user and call the appropriate menu
+            Student* student = dynamic_cast<Student*>(user);
+            Teacher* teacher = dynamic_cast<Teacher*>(user);
+            Admin* admin = dynamic_cast<Admin*>(user);
 
+            if (student) {
+                // Show student menu
+                showStudentMenu(student);
+            } else if (teacher) {
+                // Show teacher menu
+                showTeacherMenu(teacher);
+            } else if (admin) {
+                // If there is a specific menu for admin, call it here
+                // showAdminMenu(admin);
+            } else {
+                std::cerr << "Authenticated user has an unknown role." << std::endl;
+            }
+        } else {
+            std::cerr << "Login failed. Please try again." << std::endl;
+        }
 
-        
+        // Potentially add a way to exit the loop and close the application
+        std::cout << "Enter 'exit' to close the application, or anything else to try logging in again: ";
+        std::string command;
+        std::cin >> command;
+        if (command == "exit") {
+            break;
+        }
     }
+
+    // Perform any necessary cleanup
+    cleanupSystem(); // Make sure this function deallocates memory and performs other cleanup tasks
 
     return 0;
 }
