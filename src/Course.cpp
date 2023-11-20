@@ -1,5 +1,7 @@
 #include "Course.h"
 #include "Lecture.h"
+#include <algorithm> // For std::find_if
+#include <functional> // For lambda functions
 
 //Creator, Destructor methods
 Course::Course(/* args */)
@@ -64,12 +66,17 @@ bool Course::addStudent(Student& newStudent){
 	return true;
 }
 
-bool Course::dropStudent(Student& oldStudent){
-	auto it = __find_if(students.begin(), students.end(), &oldStudent);
-	if (it!=students.end()){
+bool Course::dropStudent(Student& oldStudent) {
+	// Use std::find_if with a lambda function to find the student
+	auto it = std::find_if(students.begin(), students.end(), [&oldStudent](const Student* student) {
+		return student->getID() == oldStudent.getID();
+		});
+
+	if (it != students.end()) {
 		students.erase(it);
 		return true;
 	}
-	//the method will only reach this point if the student was not part of the course
+
+	// Student not found in the course
 	return false;
 }

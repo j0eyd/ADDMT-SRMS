@@ -11,7 +11,8 @@
 
 class Admin : public User {
 public:
-    Admin(const std::string& userID, const std::string& username, const std::string& password);
+    Admin(const int& ID, const std::string& username, const std::string& password,
+        const std::string& firstName, const std::string& lastName);
     ~Admin();
 
     void createProfile(int userType, const std::string& uID, const std::string& uName, const std::string& pWord);

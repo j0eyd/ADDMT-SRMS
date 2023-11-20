@@ -6,10 +6,9 @@
 
 class Admin : public User{
 public:
-    Admin(const std::string& userID, const std::string& username, const std::string& password)
-    : User(userID, username, password){
-
-    }
+    Admin::Admin(const int& ID, const std::string& username, const std::string& password,
+        const std::string& firstName, const std::string& lastName)
+        : User(ID, username, password, firstName, lastName) {}
 
     //Method to create a profile
     void createProfile(int userType, const std::string& uID, const std::string& uName, const std::string& pWord){

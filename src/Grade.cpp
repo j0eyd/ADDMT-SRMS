@@ -1,4 +1,6 @@
 #include "Grade.h"
+#include "Student.h"
+#include "Course.h"
 
 Grade::Grade(){}
 

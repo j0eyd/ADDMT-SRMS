@@ -116,7 +116,6 @@
     <ClCompile Include="..\src\Grade.cpp" />
     <ClCompile Include="..\src\Lecture.cpp" />
     <ClCompile Include="..\src\Student.cpp" />
-    <ClCompile Include="..\src\Students.cpp" />
     <ClCompile Include="..\src\Teacher.cpp" />
     <ClCompile Include="..\src\User.cpp" />
   </ItemGroup>

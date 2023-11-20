@@ -1,4 +1,7 @@
 #include "Teacher.h"
+#include "Student.h" 
+#include "Grade.h"   
+#include "Lecture.h"
 
 Teacher::Teacher() {}
 
@@ -61,5 +64,5 @@ bool Teacher::modifyStudentGrade(const Student& student, Grade& grade,
 }
 
 bool Teacher::dropStudentGrade(Student& student, Grade& oldGrade){
-    student.dropGrade(oldGrade);
+    return student.dropGrade(oldGrade);
 }

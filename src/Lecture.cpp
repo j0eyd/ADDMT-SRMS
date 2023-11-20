@@ -1,4 +1,6 @@
 #include "Lecture.h"
+#include "Teacher.h"
+#include "Student.h"
 #include "Course.h"
 
 //Creator, Destructor methods

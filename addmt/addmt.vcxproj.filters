@@ -30,9 +30,6 @@
     <ClCompile Include="..\src\Student.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Students.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Teacher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
