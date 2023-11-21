@@ -118,6 +118,9 @@
     <ClCompile Include="..\src\Student.cpp" />
     <ClCompile Include="..\src\Teacher.cpp" />
     <ClCompile Include="..\src\User.cpp" />
+    <ClCompile Include="dashboardForm.cpp" />
+    <ClCompile Include="loginForm.cpp" />
+    <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Admin.h" />
@@ -127,6 +130,19 @@
     <ClInclude Include="..\src\Student.h" />
     <ClInclude Include="..\src\Teacher.h" />
     <ClInclude Include="..\src\User.h" />
+    <ClInclude Include="dashboardForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="loginForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
