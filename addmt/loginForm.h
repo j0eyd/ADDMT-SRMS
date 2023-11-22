@@ -47,6 +47,12 @@ namespace SRMS {
 	private: System::Windows::Forms::Button^ button1;
 	private: System::Windows::Forms::Label^ labelPassword;
 	private: System::Windows::Forms::Button^ btnSubmit;
+	private: System::Windows::Forms::TableLayoutPanel^ tlpLoginFormOptions;
+	private: System::Windows::Forms::Label^ lbRegister;
+	private: System::Windows::Forms::Label^ lbPassReset;
+
+
+
 
 	protected:
 
@@ -71,6 +77,10 @@ namespace SRMS {
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->labelPassword = (gcnew System::Windows::Forms::Label());
 			this->btnSubmit = (gcnew System::Windows::Forms::Button());
+			this->tlpLoginFormOptions = (gcnew System::Windows::Forms::TableLayoutPanel());
+			this->lbRegister = (gcnew System::Windows::Forms::Label());
+			this->lbPassReset = (gcnew System::Windows::Forms::Label());
+			this->tlpLoginFormOptions->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// labelTitle
@@ -81,7 +91,7 @@ namespace SRMS {
 				static_cast<System::Byte>(0)));
 			this->labelTitle->Location = System::Drawing::Point(12, 9);
 			this->labelTitle->Name = L"labelTitle";
-			this->labelTitle->Size = System::Drawing::Size(408, 77);
+			this->labelTitle->Size = System::Drawing::Size(420, 77);
 			this->labelTitle->TabIndex = 0;
 			this->labelTitle->Text = L"SRMS Login";
 			this->labelTitle->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
@@ -94,7 +104,7 @@ namespace SRMS {
 				static_cast<System::Byte>(0)));
 			this->tbUsername->Location = System::Drawing::Point(172, 122);
 			this->tbUsername->Name = L"tbUsername";
-			this->tbUsername->Size = System::Drawing::Size(248, 26);
+			this->tbUsername->Size = System::Drawing::Size(260, 26);
 			this->tbUsername->TabIndex = 1;
 			// 
 			// labelUsername
@@ -119,7 +129,7 @@ namespace SRMS {
 			this->tbPassword->Location = System::Drawing::Point(172, 194);
 			this->tbPassword->Name = L"tbPassword";
 			this->tbPassword->PasswordChar = '*';
-			this->tbPassword->Size = System::Drawing::Size(248, 26);
+			this->tbPassword->Size = System::Drawing::Size(260, 26);
 			this->tbPassword->TabIndex = 3;
 			// 
 			// button1
@@ -128,7 +138,7 @@ namespace SRMS {
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->button1->Location = System::Drawing::Point(407, 504);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(0, 23);
+			this->button1->Size = System::Drawing::Size(12, 23);
 			this->button1->TabIndex = 4;
 			this->button1->Text = L"Submit";
 			this->button1->UseVisualStyleBackColor = true;
@@ -146,7 +156,10 @@ namespace SRMS {
 			// 
 			// btnSubmit
 			// 
-			this->btnSubmit->Location = System::Drawing::Point(181, 249);
+			this->btnSubmit->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->btnSubmit->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->btnSubmit->Location = System::Drawing::Point(178, 250);
 			this->btnSubmit->Name = L"btnSubmit";
 			this->btnSubmit->Size = System::Drawing::Size(75, 23);
 			this->btnSubmit->TabIndex = 6;
@@ -154,12 +167,60 @@ namespace SRMS {
 			this->btnSubmit->UseVisualStyleBackColor = true;
 			this->btnSubmit->Click += gcnew System::EventHandler(this, &loginForm::btnSubmit_Click);
 			// 
+			// tlpLoginFormOptions
+			// 
+			this->tlpLoginFormOptions->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->tlpLoginFormOptions->ColumnCount = 2;
+			this->tlpLoginFormOptions->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				49.48806F)));
+			this->tlpLoginFormOptions->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				50.51194F)));
+			this->tlpLoginFormOptions->Controls->Add(this->lbRegister, 0, 0);
+			this->tlpLoginFormOptions->Controls->Add(this->lbPassReset, 1, 0);
+			this->tlpLoginFormOptions->Location = System::Drawing::Point(88, 293);
+			this->tlpLoginFormOptions->Name = L"tlpLoginFormOptions";
+			this->tlpLoginFormOptions->RowCount = 1;
+			this->tlpLoginFormOptions->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent,
+				50)));
+			this->tlpLoginFormOptions->Size = System::Drawing::Size(276, 31);
+			this->tlpLoginFormOptions->TabIndex = 7;
+			this->tlpLoginFormOptions->Visible = false;
+			this->tlpLoginFormOptions->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &loginForm::tableLayoutPanel1_Paint);
+			// 
+			// lbRegister
+			// 
+			this->lbRegister->BackColor = System::Drawing::SystemColors::Window;
+			this->lbRegister->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lbRegister->Location = System::Drawing::Point(0, 0);
+			this->lbRegister->Margin = System::Windows::Forms::Padding(0);
+			this->lbRegister->Name = L"lbRegister";
+			this->lbRegister->Size = System::Drawing::Size(136, 31);
+			this->lbRegister->TabIndex = 0;
+			this->lbRegister->Text = L"Register";
+			this->lbRegister->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->lbRegister->Click += gcnew System::EventHandler(this, &loginForm::label1_Click);
+			// 
+			// lbPassReset
+			// 
+			this->lbPassReset->BackColor = System::Drawing::SystemColors::Window;
+			this->lbPassReset->Location = System::Drawing::Point(136, 0);
+			this->lbPassReset->Margin = System::Windows::Forms::Padding(0);
+			this->lbPassReset->Name = L"lbPassReset";
+			this->lbPassReset->Size = System::Drawing::Size(140, 31);
+			this->lbPassReset->TabIndex = 1;
+			this->lbPassReset->Text = L"Forgot Password\?";
+			this->lbPassReset->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->lbPassReset->Click += gcnew System::EventHandler(this, &loginForm::lbPassReset_Click);
+			// 
 			// loginForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ActiveCaption;
-			this->ClientSize = System::Drawing::Size(432, 306);
+			this->ClientSize = System::Drawing::Size(444, 351);
+			this->Controls->Add(this->tlpLoginFormOptions);
 			this->Controls->Add(this->btnSubmit);
 			this->Controls->Add(this->labelPassword);
 			this->Controls->Add(this->button1);
@@ -167,8 +228,11 @@ namespace SRMS {
 			this->Controls->Add(this->labelUsername);
 			this->Controls->Add(this->tbUsername);
 			this->Controls->Add(this->labelTitle);
+			this->MaximumSize = System::Drawing::Size(460, 390);
+			this->MinimumSize = System::Drawing::Size(460, 390);
 			this->Name = L"loginForm";
 			this->Text = L"Login";
+			this->tlpLoginFormOptions->ResumeLayout(false);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -193,6 +257,10 @@ namespace SRMS {
 			this->Close();
 		}
 
+	}
+	private: System::Void lbRegister_Click(System::Object^ sender, System::EventArgs^ e) {
+	}
+	private: System::Void lbPassReset_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
 	};
 }
