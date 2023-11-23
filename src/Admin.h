@@ -4,7 +4,10 @@
 #include "User.h"
 #include "Student.h"
 #include "Teacher.h"
+#include "Course.h"
+#include "Grade.h"
 #include <vector>
+#include <string>
 
 class Admin : public User {
 public:
@@ -12,13 +15,19 @@ public:
         const std::string& firstName, const std::string& lastName);
     ~Admin();
 
-    void createProfile(int userType, const std::string& uID, const std::string& uName, const std::string& pWord);
-    void deleteProfile(const std::string& uID);
-    void modifyProfile(const std::string& uID);
-    void saveBackup(const std::string& filepath);
-    void loadBackup(const std::string& filepath);
+    // Profile management
+    void createStudentProfile(const Student& student);
+    void createTeacherProfile(const Teacher& teacher);
+    void deleteProfile(const std::string& userID);
+    void modifyStudentProfile(const std::string& userID, const Student& newStudentData);
+    void modifyTeacherProfile(const std::string& userID, const Teacher& newTeacherData);
 
-    // Additional methods as required...
+    // Course and grade management
+    void enrollStudentInCourse(Student& student, Course& course);
+    void unenrollStudentFromCourse(Student& student, Course& course);
+    void assignGradeToStudent(Student& student, Grade& grade);
+    void modifyStudentGrade(Student& student, Grade& newGradeData);
 };
 
-#endif
+#endif // ADMIN_H
+
