@@ -1,32 +1,24 @@
 #ifndef ADMIN_H
 #define ADMIN_H
 
-#include "User.h"
+#include <string>
+#include "Database.h"
 #include "Student.h"
 #include "Teacher.h"
-#include "Course.h"
-#include "Grade.h"
-#include <vector>
-#include <string>
 
-class Admin : public User {
+class Admin {
+private:
+    Database& db; // Reference to a database to manage persistence
+
 public:
-    Admin(const int& ID, const std::string& username, const std::string& password,
-        const std::string& firstName, const std::string& lastName);
-    ~Admin();
+    Admin(Database& db);
 
-    // Profile management
     void createStudentProfile(const Student& student);
-    void createTeacherProfile(const Teacher& teacher);
-    void deleteProfile(const std::string& userID);
-    void modifyStudentProfile(const std::string& userID, const Student& newStudentData);
-    void modifyTeacherProfile(const std::string& userID, const Teacher& newTeacherData);
+    void deleteStudentProfile(const std::string& studentId);
 
-    // Course and grade management
-    void enrollStudentInCourse(Student& student, Course& course);
-    void unenrollStudentFromCourse(Student& student, Course& course);
-    void assignGradeToStudent(Student& student, Grade& grade);
-    void modifyStudentGrade(Student& student, Grade& newGradeData);
+    void createTeacherProfile(const Teacher& teacher);
+    void deleteTeacherProfile(const std::string& teacherId);
+
 };
 
 #endif // ADMIN_H

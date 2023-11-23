@@ -21,7 +21,7 @@ public:
 	Course(); //creator
 	~Course(); //destructor
 	//accessor methods
-	int getID();
+	int getID() const;
 	string getName();
 	Teacher* getTeacher();
 	vector<Lecture*> getLectures();
