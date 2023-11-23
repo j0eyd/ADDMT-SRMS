@@ -19,3 +19,8 @@ void Admin::createTeacherProfile(const Teacher& teacher) {
 void Admin::deleteTeacherProfile(const std::string& teacherId) {
     db.deleteTeacher(teacherId);
 }
+
+void Admin::modifyStudentGrade(const std::string& studentId, const std::string& courseId, float newGrade) {
+    db.modifyStudentGrade(studentId, courseId, newGrade);
+    db.saveToFile("database.csv"); // Save the updated data to the CSV file
+}

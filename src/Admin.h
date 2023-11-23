@@ -19,6 +19,8 @@ public:
     void createTeacherProfile(const Teacher& teacher);
     void deleteTeacherProfile(const std::string& teacherId);
 
+    void modifyStudentGrade(const std::string& studentId, const std::string& courseId, float newGrade);
+
 };
 
 #endif // ADMIN_H

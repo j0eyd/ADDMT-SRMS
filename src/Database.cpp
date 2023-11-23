@@ -74,8 +74,8 @@ void saveToFile(const std::string& filename) {
             << student->getLastName() << ","
             << "Student" << "\n";
     }
-    // Repeat for teachers, admins, and courses
-    // ...
+    // Repeat for teachers and courses
+    // Have not decided whether we need teachers and courses.
 
     file.close();
 }
