@@ -17,7 +17,7 @@ public:
     Teacher();
     Teacher(const int& ID, const string& username, const string& password,
         const string& firstName, const string& lastName,
-        vector<Course*> coursesTaught);
+        vector<Course*> coursesTaught = {});
 
     // Destructor
     virtual ~Teacher();

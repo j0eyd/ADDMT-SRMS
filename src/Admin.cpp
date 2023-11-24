@@ -3,24 +3,25 @@
 // Constructor
 Admin::Admin(Database& db) : db(db) {}
 
-void Admin::createStudentProfile(const Student& student) {
-    db.saveStudent(new Student(student)); // Assuming a copy constructor for Student
+void Admin::createStudentProfile(const int& ID, const string& username, const string& password, 
+            const string& firstName, const string& lastName) {
+    db.saveStudent(new Student(ID, username, password, firstName, lastName)); // Assuming a copy constructor for Student
 }
 
-void Admin::deleteStudentProfile(const std::string& studentId) {
-    db.deleteStudent(studentId);
+void Admin::deleteStudentProfile(Student& oldStudent) {
+    db.deleteStudent(to_string(oldStudent.getID()));
 }
 
-
-void Admin::createTeacherProfile(const Teacher& teacher) {
-    db.saveTeacher(new Teacher(teacher)); // Assuming a copy constructor for Teacher
+void Admin::createTeacherProfile(const int& ID, const string& username, const string& password, 
+            const string& firstName, const string& lastName) {
+    db.saveTeacher(new Teacher(ID, username, password, firstName, lastName)); 
 }
 
-void Admin::deleteTeacherProfile(const std::string& teacherId) {
-    db.deleteTeacher(teacherId);
+void Admin::deleteTeacherProfile(const Teacher& teacher) {
+    db.deleteTeacher(to_string(teacher.getID()));
 }
 
-void Admin::modifyStudentGrade(const std::string& studentId, const std::string& courseId, float newGrade) {
+void Admin::modifyStudentGrade(const string& studentId, const string& courseId, float newGrade) {
     db.modifyStudentGrade(studentId, courseId, newGrade);
     db.saveToFile("database.csv"); // Save the updated data to the CSV file
 }

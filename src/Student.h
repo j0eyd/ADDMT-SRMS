@@ -16,8 +16,8 @@ public:
     // Creator
     Student();
     Student(const int& ID, const string& username, const string& password, 
-            const string& firstName, const string& lastName, vector<Course*> courses,
-            vector<Grade*> grades);
+            const string& firstName, const string& lastName, vector<Course*> courses = {},
+            vector<Grade*> grades = {});
     // Destructor
     ~Student();
 

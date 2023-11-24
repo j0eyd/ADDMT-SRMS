@@ -13,13 +13,15 @@ private:
 public:
     Admin(Database& db);
 
-    void createStudentProfile(const Student& student);
-    void deleteStudentProfile(const std::string& studentId);
+    void createStudentProfile(const int& ID, const string& username, const string& password, 
+            const string& firstName, const string& lastName);
+    void deleteStudentProfile(Student& oldStudent);
 
-    void createTeacherProfile(const Teacher& teacher);
-    void deleteTeacherProfile(const std::string& teacherId);
+    void createTeacherProfile(const int& ID, const string& username, const string& password, 
+            const string& firstName, const string& lastName);
+    void deleteTeacherProfile(const Teacher& teacher);
 
-    void modifyStudentGrade(const std::string& studentId, const std::string& courseId, float newGrade);
+    void modifyStudentGrade(const string& studentId, const string& courseId, float newGrade);
 
 };
 

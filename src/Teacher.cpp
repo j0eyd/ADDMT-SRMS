@@ -7,7 +7,7 @@ Teacher::Teacher() {}
 
 Teacher::Teacher(const int& ID, const string& username, const string& password,
             const string& firstName, const string& coursesTaught,
-            vector<Course*> courses)
+            vector<Course*> courses = {})
     : User(ID, username, password, firstName, lastName), coursesTaught(courses) {}
 
 Teacher::~Teacher() {}

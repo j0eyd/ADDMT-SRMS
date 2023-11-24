@@ -3,8 +3,8 @@
 Student::Student() {}
 
 Student::Student(const int& ID, const string& username, const string& password, 
-            const string& firstName, const string& lastName, vector<Course*> courses,
-            vector<Grade*> grades)
+            const string& firstName, const string& lastName, vector<Course*> courses = {},
+            vector<Grade*> grades = {})
     : User(ID, username, password, firstName, lastName), coursesEnrolled(courses),
         gradeList(grades) {}
 
