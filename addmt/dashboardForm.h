@@ -153,6 +153,39 @@ namespace SRMS {
 
 		}
 #pragma endregion
+	private: System::Void btnLogout_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		// Create an instance of the NewForm
+		// NewForm^ newForm = gcnew NewForm();
+		// Show the NewForm
+		// newForm->Show();
+	}
+
+	private: System::Void btnSettings_Click(System::Object^ sender, System::EventArgs^ e) {
+		// Create an instance of the NewForm
+		// NewForm^ newForm = gcnew NewForm();
+		// Show the NewForm
+		// newForm->Show();
+	}
+
+	private: System::Void btnProfile_Click(System::Object^ sender, System::EventArgs^ e) {
+		// Create an instance of the NewForm
+		// NewForm^ newForm = gcnew NewForm();
+		// Show the NewForm
+		// newForm->Show();
+	}
+	private: System::Void btnCourses_Click(System::Object^ sender, System::EventArgs^ e) {
+		// Create an instance of the NewForm
+		// NewForm^ newForm = gcnew NewForm();
+		// Show the NewForm
+		// newForm->Show();
+	}
+	private: System::Void btnDashboard_Click(System::Object^ sender, System::EventArgs^ e) {
+		// Create an instance of the NewForm
+		// NewForm^ newForm = gcnew NewForm();
+		// Show the NewForm
+		// newForm->Show();
+	}
 		// Begin functionality here
 	};
 }
