@@ -21,6 +21,9 @@ public:
             const string& firstName, const string& lastName);
     void deleteTeacherProfile(const Teacher& teacher);
 
+    void createCourse(int& ID, const string& name, Teacher& teacher, vector<Lecture*> lectures, vector<Student*>& students);
+    void deleteCourse(const int& ID);
+
     void modifyStudentGrade(const string& studentId, const string& courseId, float newGrade);
 
 };
