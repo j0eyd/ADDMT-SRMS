@@ -1,5 +1,6 @@
 #pragma once
 #include "User.h"
+#include "dashboardForm.h"
 
 namespace SRMS {
 
@@ -252,7 +253,7 @@ namespace SRMS {
 		}
 #pragma endregion
 
-	public: user = nullptr;
+	public: User^ user = nullptr;
 
 	private: System::Void btnSubmit_Click(System::Object^ sender, System::EventArgs^ e) {
 		String^ username = this->tbUsername->Text;
