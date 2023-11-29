@@ -19,6 +19,7 @@ namespace SRMS {
 		dashboardForm(User^ user)
 		{
 			InitializeComponent();
+			this->user = user;
 			//
 			//TODO: Add the constructor code here
 			//
@@ -152,5 +153,6 @@ namespace SRMS {
 
 		}
 #pragma endregion
+		// Begin functionality here
 	};
 }
