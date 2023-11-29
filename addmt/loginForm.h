@@ -19,6 +19,9 @@ namespace SRMS {
 		loginForm(void)
 		{
 			InitializeComponent();
+
+			user = gcnew User;
+
 			//
 			//TODO: Add the constructor code here
 			//
@@ -89,9 +92,10 @@ namespace SRMS {
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->labelTitle->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->labelTitle->Location = System::Drawing::Point(12, 9);
+			this->labelTitle->Location = System::Drawing::Point(18, 14);
+			this->labelTitle->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->labelTitle->Name = L"labelTitle";
-			this->labelTitle->Size = System::Drawing::Size(420, 77);
+			this->labelTitle->Size = System::Drawing::Size(630, 118);
 			this->labelTitle->TabIndex = 0;
 			this->labelTitle->Text = L"SRMS Login";
 			this->labelTitle->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
@@ -102,10 +106,12 @@ namespace SRMS {
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->tbUsername->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->tbUsername->Location = System::Drawing::Point(172, 122);
+			this->tbUsername->Location = System::Drawing::Point(258, 188);
+			this->tbUsername->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->tbUsername->Name = L"tbUsername";
-			this->tbUsername->Size = System::Drawing::Size(260, 26);
+			this->tbUsername->Size = System::Drawing::Size(388, 35);
 			this->tbUsername->TabIndex = 1;
+			this->tbUsername->TextChanged += gcnew System::EventHandler(this, &loginForm::tbUsername_TextChanged);
 			// 
 			// labelUsername
 			// 
@@ -114,9 +120,10 @@ namespace SRMS {
 			this->labelUsername->AutoSize = true;
 			this->labelUsername->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->labelUsername->Location = System::Drawing::Point(14, 124);
+			this->labelUsername->Location = System::Drawing::Point(21, 191);
+			this->labelUsername->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->labelUsername->Name = L"labelUsername";
-			this->labelUsername->Size = System::Drawing::Size(105, 24);
+			this->labelUsername->Size = System::Drawing::Size(158, 33);
 			this->labelUsername->TabIndex = 2;
 			this->labelUsername->Text = L"Username";
 			// 
@@ -126,19 +133,21 @@ namespace SRMS {
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->tbPassword->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->tbPassword->Location = System::Drawing::Point(172, 194);
+			this->tbPassword->Location = System::Drawing::Point(258, 298);
+			this->tbPassword->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->tbPassword->Name = L"tbPassword";
 			this->tbPassword->PasswordChar = '*';
-			this->tbPassword->Size = System::Drawing::Size(260, 26);
+			this->tbPassword->Size = System::Drawing::Size(388, 35);
 			this->tbPassword->TabIndex = 3;
 			// 
 			// button1
 			// 
 			this->button1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
-			this->button1->Location = System::Drawing::Point(407, 504);
+			this->button1->Location = System::Drawing::Point(610, 775);
+			this->button1->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(12, 23);
+			this->button1->Size = System::Drawing::Size(18, 35);
 			this->button1->TabIndex = 4;
 			this->button1->Text = L"Submit";
 			this->button1->UseVisualStyleBackColor = true;
@@ -148,9 +157,10 @@ namespace SRMS {
 			this->labelPassword->AutoSize = true;
 			this->labelPassword->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->labelPassword->Location = System::Drawing::Point(14, 196);
+			this->labelPassword->Location = System::Drawing::Point(21, 302);
+			this->labelPassword->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->labelPassword->Name = L"labelPassword";
-			this->labelPassword->Size = System::Drawing::Size(100, 24);
+			this->labelPassword->Size = System::Drawing::Size(151, 33);
 			this->labelPassword->TabIndex = 5;
 			this->labelPassword->Text = L"Password";
 			// 
@@ -159,9 +169,10 @@ namespace SRMS {
 			this->btnSubmit->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->btnSubmit->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->btnSubmit->Location = System::Drawing::Point(178, 250);
+			this->btnSubmit->Location = System::Drawing::Point(267, 385);
+			this->btnSubmit->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->btnSubmit->Name = L"btnSubmit";
-			this->btnSubmit->Size = System::Drawing::Size(75, 23);
+			this->btnSubmit->Size = System::Drawing::Size(112, 35);
 			this->btnSubmit->TabIndex = 6;
 			this->btnSubmit->Text = L"Submit";
 			this->btnSubmit->UseVisualStyleBackColor = true;
@@ -178,12 +189,13 @@ namespace SRMS {
 				50.51194F)));
 			this->tlpLoginFormOptions->Controls->Add(this->lbRegister, 0, 0);
 			this->tlpLoginFormOptions->Controls->Add(this->lbPassReset, 1, 0);
-			this->tlpLoginFormOptions->Location = System::Drawing::Point(88, 293);
+			this->tlpLoginFormOptions->Location = System::Drawing::Point(132, 451);
+			this->tlpLoginFormOptions->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->tlpLoginFormOptions->Name = L"tlpLoginFormOptions";
 			this->tlpLoginFormOptions->RowCount = 1;
 			this->tlpLoginFormOptions->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent,
 				50)));
-			this->tlpLoginFormOptions->Size = System::Drawing::Size(276, 31);
+			this->tlpLoginFormOptions->Size = System::Drawing::Size(414, 48);
 			this->tlpLoginFormOptions->TabIndex = 7;
 			this->tlpLoginFormOptions->Visible = false;
 			this->tlpLoginFormOptions->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &loginForm::tableLayoutPanel1_Paint);
@@ -196,7 +208,7 @@ namespace SRMS {
 			this->lbRegister->Location = System::Drawing::Point(0, 0);
 			this->lbRegister->Margin = System::Windows::Forms::Padding(0);
 			this->lbRegister->Name = L"lbRegister";
-			this->lbRegister->Size = System::Drawing::Size(136, 31);
+			this->lbRegister->Size = System::Drawing::Size(204, 48);
 			this->lbRegister->TabIndex = 0;
 			this->lbRegister->Text = L"Register";
 			this->lbRegister->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
@@ -205,10 +217,10 @@ namespace SRMS {
 			// lbPassReset
 			// 
 			this->lbPassReset->BackColor = System::Drawing::SystemColors::Window;
-			this->lbPassReset->Location = System::Drawing::Point(136, 0);
+			this->lbPassReset->Location = System::Drawing::Point(204, 0);
 			this->lbPassReset->Margin = System::Windows::Forms::Padding(0);
 			this->lbPassReset->Name = L"lbPassReset";
-			this->lbPassReset->Size = System::Drawing::Size(140, 31);
+			this->lbPassReset->Size = System::Drawing::Size(210, 48);
 			this->lbPassReset->TabIndex = 1;
 			this->lbPassReset->Text = L"Forgot Password\?";
 			this->lbPassReset->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
@@ -216,10 +228,10 @@ namespace SRMS {
 			// 
 			// loginForm
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
+			this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ActiveCaption;
-			this->ClientSize = System::Drawing::Size(444, 351);
+			this->ClientSize = System::Drawing::Size(657, 514);
 			this->Controls->Add(this->tlpLoginFormOptions);
 			this->Controls->Add(this->btnSubmit);
 			this->Controls->Add(this->labelPassword);
@@ -228,8 +240,9 @@ namespace SRMS {
 			this->Controls->Add(this->labelUsername);
 			this->Controls->Add(this->tbUsername);
 			this->Controls->Add(this->labelTitle);
-			this->MaximumSize = System::Drawing::Size(460, 390);
-			this->MinimumSize = System::Drawing::Size(460, 390);
+			this->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
+			this->MaximumSize = System::Drawing::Size(679, 570);
+			this->MinimumSize = System::Drawing::Size(679, 570);
 			this->Name = L"loginForm";
 			this->Text = L"Login";
 			this->tlpLoginFormOptions->ResumeLayout(false);
@@ -239,7 +252,7 @@ namespace SRMS {
 		}
 #pragma endregion
 
-	public: User^ user = nullptr;
+	public: user = nullptr;
 
 	private: System::Void btnSubmit_Click(System::Object^ sender, System::EventArgs^ e) {
 		String^ username = this->tbUsername->Text;
@@ -250,17 +263,36 @@ namespace SRMS {
 		}
 
 		// TODO: Connect to and query database for correct username and password
-
-		if (username == "craeton") {
-			user = gcnew User;
-			user->username = "craeton";
+		int loginStatus = user->loginSearch(username, password);
+		if (loginStatus == 0) {
+			// no credentials found.
+			MessageBox::Show("Login failed", "Login Failed", MessageBoxButtons::OK);
+		}
+		else if (loginStatus == 1) {
+			// login username is correct, password is not.
+			MessageBox::Show("Login failed: Password is Incorrect", "Login Failed", MessageBoxButtons::OK);
+		}
+		else if (loginStatus == 2) {
+			// login success (username and password are present and correct)
+			
+			dashboardForm^ dashboard = gcnew dashboardForm(user);
+			dashboard->Show();
 			this->Close();
 		}
+
+
+		// if (username == "craeton") {
+			// user = gcnew User;
+			//user->username = "craeton";
+			// this->Close();
+		// }
 
 	}
 	private: System::Void lbRegister_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
 	private: System::Void lbPassReset_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
-	};
+	private: System::Void tbUsername_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+	}
+};
 }
