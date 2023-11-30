@@ -175,6 +175,8 @@ namespace SRMS {
 		// newForm->Show();
 	}
 	private: System::Void btnCourses_Click(System::Object^ sender, System::EventArgs^ e) {
+		// In this area, call the courseForm type related to the User type (Student, Teacher, Admin)
+
 		// Create an instance of the NewForm
 		// NewForm^ newForm = gcnew NewForm();
 		// Show the NewForm
@@ -188,4 +190,5 @@ namespace SRMS {
 	}
 		// Begin functionality here
 	};
+	// Can copy this format for most of the forms we need in the future (then add further functionality related to the buttons clicked.
 }
