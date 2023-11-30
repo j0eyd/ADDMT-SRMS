@@ -1,5 +1,6 @@
 #pragma once
 #include "User.h"
+#include "dashboardForm.h"
 
 namespace SRMS {
 
@@ -252,7 +253,7 @@ namespace SRMS {
 		}
 #pragma endregion
 
-	public: user = nullptr;
+	public: User^ user = nullptr;
 
 	private: System::Void btnSubmit_Click(System::Object^ sender, System::EventArgs^ e) {
 		String^ username = this->tbUsername->Text;
@@ -279,6 +280,15 @@ namespace SRMS {
 			dashboard->Show();
 			this->Close();
 		}
+		// For future referance, to check what type the child class of User is,
+		// student, teacher, or admin, you can call dynamic_cast to check:
+		// example:
+		//    if (dynamic_cast<Admin*>(user)) {
+		// std::cout << "User is an Admin" << std::endl;
+	    // }
+
+		// Might need this later if the admin class will have a different
+		//  dashboardForm than the other classes.
 
 
 		// if (username == "craeton") {
