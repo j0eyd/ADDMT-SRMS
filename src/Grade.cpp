@@ -1,6 +1,7 @@
 #include "Grade.h"
 #include "Student.h"
 #include "Course.h"
+#include "sqlite3.h"
 
 Grade::Grade(){}
 

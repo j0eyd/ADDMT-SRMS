@@ -1,138 +1,79 @@
-#include "Database.h"
-#include <fstream>
-#include <sstream>
-#include <algorithm>
-#include <iostream>
+#include "sqlite3.h"
+#include "Teacher.h"
+#include "Admin.h"
 
-// Constructor
-Database::Database() {
-    // Initialization if necessary
+int createStudentTable(){
+
+    rc = sqlite3_exec(db, sql, 0, 0, &errMsg);
 }
 
-// Destructor
-Database::~Database() {
-    for (auto* student : studentList) delete student;
-    for (auto* teacher : teacherList) delete teacher;
-    for (auto* course : courseList) delete course;
-}
+void displayAllTables(sqlite3 *db) {
+    const char *sql = "SELECT name FROM sqlite_master WHERE type='table';";
+    sqlite3_stmt *stmt;
 
-// Student-related methods
-void Database::saveStudent(Student* student) {
-    studentList.push_back(student);
-}
-
-void Database::deleteStudent(const std::string& studentId) {
-    // ... implementation
-}
-
-
-// Teacher-related methods
-void Database::saveTeacher(Teacher* teacher) {
-    teacherList.push_back(teacher);
-}
-
-void Database::deleteTeacher(const std::string& teacherId) {
-    auto it = std::find_if(teacherList.begin(), teacherList.end(),
-        [&teacherId](const Teacher* teacher) {
-            return teacher->getID() == std::stoi(teacherId);
-        });
-    if (it != teacherList.end()) {
-        delete* it;  // Free memory
-        teacherList.erase(it);
+    if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+        cerr << "Error preparing statement: " << sqlite3_errmsg(db) << endl;
+        return;
     }
-}
 
-// Course-related methods
-void Database::saveCourse(Course* course) {
-    courseList.push_back(course);
-}
+    while (sqlite3_step(stmt) == SQLITE_ROW) {
+        const char *tableName = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
+        cout << "Table: " << tableName << endl;
 
-void Database::deleteCourse(const std::string& courseId) {
-    auto it = std::find_if(courseList.begin(), courseList.end(),
-        [&courseId](const Course* course) {
-            return course->getID() == std::stoi(courseId);
-        });
-    if (it != courseList.end()) {
-        delete* it;  // Free memory
-        courseList.erase(it);
-    }
-}
-
-
-// File IO methods
-void saveToFile(const std::string& filename) {
-    std::ofstream file(filename);
-    // Write the header
-    file << "ID,Username,Password,FirstName,LastName,Type\n";
-
-    // Serialize and write students
-    for (const auto& student : studentList) {
-        file << student->getID() << ","
-            << student->getUsername() << ","
-            << student->getPassword() << ","
-            << student->getFirstName() << ","
-            << student->getLastName() << ","
-            << "Student" << "\n";
-    }
-    // Repeat for teachers and courses
-    // Have not decided whether we need teachers and courses.
-
-    file.close();
-}
-
-void loadFromFile(const std::string& filename) {
-    std::ifstream file(filename);
-    std::string line;
-    // Skip the header
-    std::getline(file, line);
-
-    while (std::getline(file, line)) {
-        std::stringstream ss(line);
-        std::string id, username, password, firstName, lastName, type;
-        std::getline(ss, id, ',');
-        std::getline(ss, username, ',');
-        std::getline(ss, password, ',');
-        std::getline(ss, firstName, ',');
-        std::getline(ss, lastName, ',');
-        std::getline(ss, type, ',');
-
-        if (type == "Student") {
-            // Construct a new student object and add to the database
-        }
-        // Repeat for teachers, admins, and courses
-        // ...
-    }
-    file.close();
-}
-
-void Database::modifyStudentGrade(const std::string& studentId, const std::string& courseId, float newGrade) {
-    // Find the student by ID
-    auto studentIter = std::find_if(studentList.begin(), studentList.end(),
-                                    [&studentId](const Student* student) {
-                                        return student->getID() == std::stoi(studentId);
-                                    });
-
-    if (studentIter != studentList.end()) {
-        Student* student = *studentIter;
-        // Find the corresponding course
-        auto courseIter = std::find_if(courseList.begin(), courseList.end(),
-                                       [&courseId](const Course* course) {
-                                           return course->getID() == std::stoi(courseId);
-                                       });
-
-        if (courseIter != courseList.end()) {
-            Course* course = *courseIter;
-            // Now find and update the grade
-            for (Grade* grade : student->getCourseGrades(*course)) {
-                grade->setPoints(newGrade); // Assuming Grade class has a method to set new grade points
-                // Perform any additional updates required for the Grade object
-                break;
+        // Retrieve and display data from each table
+        const char *query = ("SELECT * FROM " + string(tableName) + ";").c_str();
+        if (sqlite3_exec(db, query, [](void *data, int argc, char **argv, char **colNames) -> int {
+            for (int i = 0; i < argc; i++) {
+                cout << colNames[i] << ": " << (argv[i] ? argv[i] : "NULL") << " | ";
             }
+            cout << endl;
+            return 0;
+        }, nullptr, nullptr) != SQLITE_OK) {
+            cerr << "Error executing query for table " << tableName << ": " << sqlite3_errmsg(db) << endl;
         }
     }
+
+    sqlite3_finalize(stmt);
 }
 
+bool createUsersTable(sqlite3 *db){
+    char* errMsg;
+    string query = "CREATE TABLE IF NOT EXISTS Users (
+                      ID INTEGER PRIMARY KEY,
+                      username TEXT NOT NULL,
+                      password TEXT NOT NULL,
+                      firstName TEXT,
+                      lastName TEXT,
+                      userType TEXT NOT NULL);"
+    return (sqlite3_exec(db, query, 0, 0, errMsg) == 0);
+}
 
-// Move constructor and move assignment operator if needed
-Database::Database(Database&&) noexcept = default;
-Database& Database::operator=(Database&&) noexcept = default;
+int main(){
+    //INTIALIZATION
+    sqlite3 *db;
+    char *errMsg = 0;
+    //open the database or create it if it doesn't exist
+    int rc = sqlite3_open("data/database.db", &db);
+    if (rc != SQLITE_OK){
+        cout<<"Can't open database: "<<sqlite3_errmsg(db)<<endl;
+        return -1;
+    }
+
+    //OP Choice
+    cout<<"choose operation (fill | display)"<<endl;
+    string choice;
+    cin>>choice;
+    switch choice{
+        case "fill":
+            createUsertables(db);
+        case "display":
+            displayAllTables(db);
+            break;
+        default:
+            cout<<"wrong choice"<<endl;
+            break;
+    }
+
+    sqlite3_close(db);
+    return 0;
+}

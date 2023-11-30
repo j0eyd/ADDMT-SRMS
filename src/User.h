@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include "sqlite3.h"
 using namespace std;
 
 class User {
