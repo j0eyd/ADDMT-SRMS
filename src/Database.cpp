@@ -2,7 +2,7 @@
 #include "Teacher.h"
 #include "Admin.h"
 
-void displayAllTables(sqlite3 *db) {
+void displayAllTables(sqlite3 *db){
     const char *query = "SELECT name FROM sqlite_master WHERE type='table';";
     sqlite3_stmt *stmt;
 
@@ -31,7 +31,13 @@ void displayAllTables(sqlite3 *db) {
     sqlite3_finalize(stmt);
 }
 
-bool createUsersTable(sqlite3 *db) {
+bool deleteTable(sqlite3* db, const string& tableName){
+    char* errMsg;
+    string query = "DROP TABLE IF EXISTS" + tableName + ";";
+    return sqlite3_exec(db, query.c_str(), 0, 0, &errMsg) == SQLITE_OK;
+}
+
+bool createUsersTable(sqlite3* db){
     char* errMsg;
     const char* query = "CREATE TABLE IF NOT EXISTS User ("
                         "ID INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -42,7 +48,15 @@ bool createUsersTable(sqlite3 *db) {
     return sqlite3_exec(db, query, 0, 0, &errMsg) == SQLITE_OK;
 }
 
-int createStudentsTable(sqlite3 *db) {
+bool createCoursesTable(sqlite3* db){
+    char* errMsg;
+    const char* query = "CREATE TABLE IF NOT EXISTS Courses ("
+                        "ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+                        "TeacherID INT REFERENCES Teachers(ID));";
+    return sqlite3_exec(db, query, 0, 0, &errMsg) == SQLITE_OK;
+}
+
+bool createStudentsTable(sqlite3* db){
     char* errMsg;
     const char* query = "CREATE TABLE IF NOT EXISTS Students ("
                         "userID INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -56,7 +70,7 @@ int createStudentsTable(sqlite3 *db) {
     return sqlite3_exec(db, query, 0, 0, &errMsg) == SQLITE_OK;
 }
 
-int createTeachersTable(sqlite3 *db) {
+bool createTeachersTable(sqlite3* db){
     char* errMsg;
     const char* query = "CREATE TABLE IF NOT EXISTS Teachers ("
                         "userID INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -66,6 +80,19 @@ int createTeachersTable(sqlite3 *db) {
                         "Course3ID INT REFERENCES Courses(ID),"
                         "Course4ID INT REFERENCES Courses(ID),"
                         "Course5ID INT REFERENCES Courses(ID));";
+    return sqlite3_exec(db, query, 0, 0, &errMsg) == SQLITE_OK;
+}
+
+bool createGradesTable(sqlite3* db){
+    char* errMsg;
+    const char* query = "CREATE TABLE IF NOT EXISTS Grades ("
+                        "ID INT PRIMARY KEY AUTOINCREMENT ("
+                        "studentID INT REFERENCES Students(userID),"
+                        "courseID INT REFERENCES Courses(ID),"
+                        "points DECIMAL(10,5),"
+                        "outOf DECIMAL(10,5),"
+                        "value DECIMAL(10,5),"
+                        "coeff DECIMAL(10,5);";
     return sqlite3_exec(db, query, 0, 0, &errMsg) == SQLITE_OK;
 }
 
