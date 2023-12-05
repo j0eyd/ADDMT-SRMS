@@ -2,16 +2,11 @@
 #include "Teacher.h"
 #include "Admin.h"
 
-int createStudentTable(){
-
-    rc = sqlite3_exec(db, sql, 0, 0, &errMsg);
-}
-
 void displayAllTables(sqlite3 *db) {
-    const char *sql = "SELECT name FROM sqlite_master WHERE type='table';";
+    const char *query = "SELECT name FROM sqlite_master WHERE type='table';";
     sqlite3_stmt *stmt;
 
-    if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+    if (sqlite3_prepare_v2(db, query, -1, &stmt, nullptr) != SQLITE_OK) {
         cerr << "Error preparing statement: " << sqlite3_errmsg(db) << endl;
         return;
     }
@@ -27,7 +22,7 @@ void displayAllTables(sqlite3 *db) {
                 cout << colNames[i] << ": " << (argv[i] ? argv[i] : "NULL") << " | ";
             }
             cout << endl;
-            return 0;
+            return 0; 
         }, nullptr, nullptr) != SQLITE_OK) {
             cerr << "Error executing query for table " << tableName << ": " << sqlite3_errmsg(db) << endl;
         }
@@ -36,20 +31,46 @@ void displayAllTables(sqlite3 *db) {
     sqlite3_finalize(stmt);
 }
 
-bool createUsersTable(sqlite3 *db){
+bool createUsersTable(sqlite3 *db) {
     char* errMsg;
-    string query = "CREATE TABLE IF NOT EXISTS Users (
-                      ID INTEGER PRIMARY KEY,
-                      username TEXT NOT NULL,
-                      password TEXT NOT NULL,
-                      firstName TEXT,
-                      lastName TEXT,
-                      userType TEXT NOT NULL);"
-    return (sqlite3_exec(db, query, 0, 0, errMsg) == 0);
+    const char* query = "CREATE TABLE IF NOT EXISTS User ("
+                        "ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+                        "username VARCHAR(25) NOT NULL,"
+                        "password VARCHAR(25),"
+                        "firstName VARCHAR(25),"
+                        "lastName VARCHAR(25);)";
+    return sqlite3_exec(db, query, 0, 0, &errMsg) == SQLITE_OK;
+}
+
+int createStudentsTable(sqlite3 *db) {
+    char* errMsg;
+    const char* query = "CREATE TABLE IF NOT EXISTS Students ("
+                        "userID INTEGER PRIMARY KEY AUTOINCREMENT,"
+                        "FOREIGN KEY (userID) REFERENCES User(ID),"
+                        "biography VARCHAR(5000),"
+                        "Course1ID INT REFERENCES Courses(ID),"
+                        "Course2ID INT REFERENCES Courses(ID),"
+                        "Course3ID INT REFERENCES Courses(ID),"
+                        "Course4ID INT REFERENCES Courses(ID),"
+                        "Course5ID INT REFERENCES Courses(ID));";
+    return sqlite3_exec(db, query, 0, 0, &errMsg) == SQLITE_OK;
+}
+
+int createTeachersTable(sqlite3 *db) {
+    char* errMsg;
+    const char* query = "CREATE TABLE IF NOT EXISTS Teachers ("
+                        "userID INTEGER PRIMARY KEY AUTOINCREMENT,"
+                        "FOREIGN KEY (userID) REFERENCES User(ID),"
+                        "Course1ID INT REFERENCES Courses(ID),"
+                        "Course2ID INT REFERENCES Courses(ID),"
+                        "Course3ID INT REFERENCES Courses(ID),"
+                        "Course4ID INT REFERENCES Courses(ID),"
+                        "Course5ID INT REFERENCES Courses(ID));";
+    return sqlite3_exec(db, query, 0, 0, &errMsg) == SQLITE_OK;
 }
 
 int main(){
-    //INTIALIZATION
+    //INITIALIZATION
     sqlite3 *db;
     char *errMsg = 0;
     //open the database or create it if it doesn't exist
@@ -60,20 +81,9 @@ int main(){
     }
 
     //OP Choice
-    cout<<"choose operation (fill | display)"<<endl;
+    cout<<"choose operation (fill:1 | display:2)"<<endl;
     string choice;
     cin>>choice;
-    switch choice{
-        case "fill":
-            createUsertables(db);
-        case "display":
-            displayAllTables(db);
-            break;
-        default:
-            cout<<"wrong choice"<<endl;
-            break;
-    }
-
     sqlite3_close(db);
     return 0;
 }

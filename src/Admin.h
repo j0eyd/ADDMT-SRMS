@@ -2,16 +2,13 @@
 #define ADMIN_H
 
 #include <string>
-#include "Database.h"
 #include "Student.h"
 #include "Teacher.h"
 
 class Admin {
 private:
-    Database& db; // Reference to a database to manage persistence
-
 public:
-    Admin(Database& db);
+    Admin();
 
     void createStudentProfile(const int& ID, const string& username, const string& password, 
             const string& firstName, const string& lastName);
