@@ -14,9 +14,6 @@ class Course
 private:
 	int ID;
 	string name;
-	Teacher* teacher;
-	vector<Lecture*> lectures;
-	vector<Student*> students;
 public:
 	Course(); //creator
 	~Course(); //destructor

@@ -3,11 +3,9 @@
 #include <iostream>
 using namespace std;
 
-
 void displayAllTables(sqlite3 *db){
     const char *query = "SELECT name FROM sqlite_master WHERE type='table';";
     sqlite3_stmt *stmt;
-
     if (sqlite3_prepare_v2(db, query, -1, &stmt, nullptr) != SQLITE_OK) {
         cerr << "Error preparing statement: " << sqlite3_errmsg(db) << endl;
         return;
@@ -16,7 +14,6 @@ void displayAllTables(sqlite3 *db){
     while (sqlite3_step(stmt) == SQLITE_ROW) {
         const char *tableName = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
         cout << "Table: " << tableName << endl;
-
         // Retrieve and display data from each table
         const char *query = ("SELECT * FROM " + string(tableName) + ";").c_str();
         if (sqlite3_exec(db, query, [](void *data, int argc, char **argv, char **colNames) -> int {
@@ -29,7 +26,6 @@ void displayAllTables(sqlite3 *db){
             cerr << "Error executing query for table " << tableName << ": " << sqlite3_errmsg(db) << endl;
         }
     }
-
     sqlite3_finalize(stmt);
 }
 
@@ -46,7 +42,8 @@ bool createUsersTable(sqlite3* db){
                         "username VARCHAR(25) NOT NULL,"
                         "password VARCHAR(25),"
                         "firstName VARCHAR(25),"
-                        "lastName VARCHAR(25));";
+                        "lastName VARCHAR(25),"
+                        "Type INT);"; //TYPES: 0: Admin | 1: Teacher | 2: Student
     int result = sqlite3_exec(db, query, 0, 0, &errMsg);
     if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;
     return result == SQLITE_OK;
@@ -56,7 +53,7 @@ bool createCoursesTable(sqlite3* db){
     char* errMsg;
     const char* query = "CREATE TABLE IF NOT EXISTS Courses ("
                         "ID INTEGER PRIMARY KEY AUTOINCREMENT,"
-                        "TeacherID INT REFERENCES Teachers(ID));";
+                        "NAME INTEGER);";
     int result = sqlite3_exec(db, query, 0, 0, &errMsg);
     if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;
     return result == SQLITE_OK;

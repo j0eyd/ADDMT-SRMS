@@ -2,39 +2,26 @@
 #define USER_H
 
 #include <string>
-#include <vector>
-#include <algorithm>
-#include "sqlite3.h"
+#include <iostream>
+#include "lib/sqlite3.h"
 using namespace std;
 
-class User {
-protected:
-    int ID;
-    string username;
-    string password;
-    string firstName;
-    string lastName;
-public:
-    // Constructors
-    User();
-    User(const int& ID, const string& username, const string& password,
-        const string& firstName, const string& lastName);
-    // Destructor
-    virtual ~User(); // Virtual if inheritance is used
+// ructors
+bool newUser(sqlite3* db, string& username,  string& password,
+     string& firstName,  string& lastName, int& type);
+// Destructor
+bool deleteUser(sqlite3* db, int userID);
 
-    // Accessor Methods
-    int getID() const;
-    string getUsername() const;
-    string getPassword() const;
-    string getFirstName() const;
-    string getLastName() const;
+// Accessor Methods
+int getUserID(sqlite3* db, string username);
+string getUsername(sqlite3* db, int UserID);
+string getPassword(sqlite3* db, int UserID);
+string getFirstName(sqlite3* db, int UserID);
+string getLastName(sqlite3* db, int UserID);
+int getUserType(sqlite3* db, int UserID);
 
-    // Mutator Methods
-    void setID(const int& newID);
-    void setUsername(const string& newUsername);
-    void setPassword(const string& newPassword);
-    void setFirstName(const string& newFirstName);
-    void setLastName(const string& newLastName);
-};
+bool modifyUsername(sqlite3* db, int UserID, string newUsername);
+bool modifyPassword(sqlite3* db, int UserID, string newPassword);
 
+void UserTester(sqlite3* db);
 #endif // USER_H
