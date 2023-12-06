@@ -53,7 +53,7 @@ bool createCoursesTable(sqlite3* db){
     char* errMsg;
     const char* query = "CREATE TABLE IF NOT EXISTS Courses ("
                         "ID INTEGER PRIMARY KEY AUTOINCREMENT,"
-                        "NAME INTEGER);";
+                        "NAME VARCHAR(100));";
     int result = sqlite3_exec(db, query, 0, 0, &errMsg);
     if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;
     return result == SQLITE_OK;

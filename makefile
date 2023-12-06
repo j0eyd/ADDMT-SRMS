@@ -9,12 +9,12 @@ db: src/Database.cpp
 
 run_dbcreate: db
 	./obj/dbcreate
-	
+
 clean:
 	rm obj/*
 
 cleardb:
 	rm data/database.db
 
-main: src/main.cpp src/User.cpp
-	$(CC) $(FLAGS) src/main.cpp src/User.cpp -o obj/main -lsqlite3
+main: src/main.cpp src/User.cpp src/Course.cpp
+	$(CC) $(FLAGS) src/main.cpp src/User.cpp src/Course.cpp -o obj/main -lsqlite3

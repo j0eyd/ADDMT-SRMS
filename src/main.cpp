@@ -1,4 +1,5 @@
 #include "User.h"
+#include "Course.h"
 
 int main() {
     sqlite3 *db;
@@ -9,6 +10,7 @@ int main() {
         return -1;
     }
     UserTester(db);
+    courseTester(db);
     sqlite3_close(db);
     return 0;
 }

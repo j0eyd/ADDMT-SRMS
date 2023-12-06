@@ -6,7 +6,7 @@
 #include "lib/sqlite3.h"
 using namespace std;
 
-// ructors
+// Constructor
 bool newUser(sqlite3* db, string& username,  string& password,
      string& firstName,  string& lastName, int& type);
 // Destructor

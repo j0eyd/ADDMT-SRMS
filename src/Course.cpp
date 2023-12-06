@@ -1,87 +1,74 @@
 #include "Course.h"
-#include "Lecture.h"
-#include <algorithm> // For std::find_if
-#include <functional> // For lambda functions
 
-//Creator, Destructor methods
-Course::Course(/* args */)
-{}
+// Constructor
+bool newCourse(sqlite3* db, string& name){
+	char* errMsg;
+    string query = "INSERT INTO Courses (NAME) VALUES ('" + name + "');";
+    int result = sqlite3_exec(db, query.c_str(), 0, 0, &errMsg);
+    if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;
+    return result == SQLITE_OK;
+}
+// Destructor
+bool deleteCourse(sqlite3* db, int courseID){
+	char* errMsg;
+    string query = "DELETE FROM Courses WHERE ID=" + to_string(courseID) + ";";
+    int result = sqlite3_exec(db, query.c_str(), 0, 0, &errMsg);
+    if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;
+    return result == SQLITE_OK;
+}
 
-Course::~Course()
-{}
+// Accessor Methods
+int getCourseID(sqlite3* db, string name){
+    char* errMsg;
+    int courseID = -1;  // Default value if no user is found
+    string query = "SELECT ID FROM Courses WHERE NAME ='" + name + "';";
+    int result = sqlite3_exec(db, query.c_str(), [](void* data, int argc, char** argv, char** colNames) {
+        // Assuming only one row is returned
+        if (argc > 0) {
+            reinterpret_cast<int*>(data)[0] = atoi(argv[0]);
+        }
+        return 0;
+    }, &courseID, &errMsg);
+    if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;
+    return courseID;
+}
 
-//Accessor methods
-int Course::getID() {return ID;}
-
-string Course::getName() {return name;}
-
-Teacher* Course::getTeacher() {return teacher;}
-
-vector<Lecture*> Course::getLectures() {return lectures;}
-
-vector<Student*> Course::getStudents() {
-    return students;
+string getCourseName(sqlite3* db, int courseID){
+	char* errMsg;
+    string courseName = "error: notfound";  // Default value if no user is found
+    string query = "SELECT NAME FROM Courses WHERE ID ='" + to_string(courseID) + "';";
+    int result = sqlite3_exec(db, query.c_str(), [](void* data, int argc, char** argv, char** colNames) {
+        // Assuming only one row is returned
+        if (argc > 0) {
+            *reinterpret_cast<string*>(data) = argv[0];
+        }
+        return 0;
+    }, &courseName, &errMsg);
+    if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;
+    return courseName;
 }
 
 
-//Mutator methods
-
-void Course::setID(int newID)
-{
-	ID = newID;
+//Mutator method
+bool modifyCourseName(sqlite3* db, int courseID, string newCourseName){
+	char* errMsg;
+    string query = "UPDATE Courses SET Name='" + newCourseName + "' WHERE ID=" + to_string(courseID) + ";";
+    int result = sqlite3_exec(db, query.c_str(), 0, 0, &errMsg);
+    if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;
+    return result == SQLITE_OK;
 }
 
-void Course::setName(string newName)
-{
-	name = newName;
-}
-
-void Course::setTeacher(Teacher& newTeacher)
-{
-	teacher = &newTeacher;
-}
-
-bool Course::addLecture(Lecture& newLecture){
-	//make sure that the lecture isn't already part of the course
-	for(size_t i = 0; i<lectures.size(); i++){
-		if (lectures[i]->getID() == newLecture.getID()) return false;
-	}
-	//add the lecture to the course
-	lectures.push_back(&newLecture);
-	return true;
-}
-
-bool Course::dropLecture(Lecture& oldLecture){
-	auto it = find(lectures.begin(), lectures.end(), &oldLecture);
-	if (it!=lectures.end()){
-		lectures.erase(it);
-		return true;
-	}
-	//the method will only reach this point if the lecture was not part of the course
-	return false;
-}
-
-bool Course::addStudent(Student& newStudent){
-	//make sure that the student isn't already part of the course
-	for(size_t i = 0; i<students.size(); i++){
-		if (students[i]->getID() == newStudent.getID()) return false;
-	}
-	//add the student to the course
-	students.push_back(&newStudent);
-	return true;
-}
-
-bool Course::dropStudent(Student& oldStudent) {
-	// Use std::find_if with a lambda function to find the student
-	auto it = std::find_if(students.begin(), students.end(), [&oldStudent](const Student* student) {
-		return student->getID() == oldStudent.getID();
-		});
-
-	if (it != students.end()) {
-		students.erase(it);
-		return true;
-	}
-
-	// Student not found in the course
-	return false;
+void courseTester(sqlite3* db){
+	string name1= "MTH 231";
+	if (newCourse(db, name1)) cout<<"New Course created"<<endl;
+	int go;
+	int ID = getCourseID(db, name1);
+	cin>>go;
+	cout<<"ID: "<<ID<<endl;
+	cout<<"Name: "<<getCourseName(db, ID)<<endl;
+	cout<<"Choose a new course name: ";
+	string name2;
+	cin>>name2;
+	modifyCourseName(db, ID, name2);
+	cout<<"New course name: "<<getCourseName(db, ID)<<endl;
 }

@@ -1,36 +1,23 @@
 #ifndef _COURSE
 #define _COURSE
 
+#include <string>
 #include <iostream>
-#include <vector>
-#include <algorithm>
-#include "Teacher.h"
-#include "Student.h"
-#include "Lecture.h"
+#include "lib/sqlite3.h"
 using namespace std;
 
-class Course
-{
-private:
-	int ID;
-	string name;
-public:
-	Course(); //creator
-	~Course(); //destructor
-	//accessor methods
-	int getID() const;
-	string getName();
-	Teacher* getTeacher();
-	vector<Lecture*> getLectures();
-	vector<Student*> getStudents();
-	//mutator methods
-	void setID(int id);
-	void setName(string name);
-	void setTeacher(Teacher& newTeacher);
-	bool addLecture(Lecture& newLecture);
-	bool dropLecture(Lecture& oldLecture);
-	bool addStudent(Student& newStudent);
-	bool dropStudent(Student& oldStudent);
-};
+// Constructor
+bool newCourse(sqlite3* db, string& name);
+// Destructor
+bool deleteCourse(sqlite3* db, int courseID);
+
+// Accessor Methods
+int getCourseID(sqlite3* db, string name);
+string getCourseName(sqlite3* db, int courseID);
+
+//Mutator method
+bool modifyCourseName(sqlite3* db, int UserID, string newCourseName);
+
+void courseTester(sqlite3* db);
 
 #endif
