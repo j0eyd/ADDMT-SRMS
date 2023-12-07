@@ -2,42 +2,22 @@
 #define TEACHER_H
 
 #include "User.h"
-#include "Lecture.h" 
-// Forward declarations
-class Course;
-class Student;
-class Grade;
+#include "Course.h"
+#include <vector>
 
-class Teacher : public User {
-protected:
-    vector<Course*> coursesTaught;
+bool newTeacher(sqlite3* db,  string username, string password,
+    string firstName, string lastName);
 
-public:
-    // Constructors
-    Teacher();
-    Teacher(const int& ID, const string& username, const string& password,
-        const string& firstName, const string& lastName,
-        vector<Course*> coursesTaught = {});
+bool deleteTeacher(sqlite3* db, int userID);
 
-    // Destructor
-    virtual ~Teacher();
+vector<int> getTaughtCourseIDs(sqlite3* db, int userID);
 
-    // Accessors
-    vector<Course*> getCoursesTaught() const;
-    bool getStudentLectureAttendance(const Lecture& lecture, Student& student) const;
-    vector<Grade*> getStudentCourseGrades(const Student& student, Course& course) const;
+string getBiography(sqlite3* db, int userID);
 
-    // Mutators
-    bool addCourseTaught(Course& course);
-    bool dropCourseTaught(Course& course);
-    bool addLecturePresentStudent(Lecture& lecture, Student& student);
-    bool dropLectureMissingStudent(Lecture& lecture, Student& student);
-    bool addStudentGrade(Student& student, Grade& grade);
-    bool modifyStudentGrade(const Student& student, Grade& grade,
-        const string& newIdentifier, const float& newPoints,
-        const float& newOutOf, const float& newCoeff);
-    bool dropStudentGrade(Student& student, Grade& oldGrade);
-};
+bool modifyBiography(sqlite3* db, int userID, string newBiography);
+
+bool addTaughtCourse(sqlite3* db, int userID, int courseID);
+
+bool dropTaughtCourse(sqlite3* db, int userID, int courseID);
 
 #endif // TEACHER_H
-

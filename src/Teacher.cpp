@@ -1,68 +1,79 @@
 #include "Teacher.h"
-#include "Student.h" 
-#include "Grade.h"   
-#include "Lecture.h"
 
-Teacher::Teacher() {}
-
-Teacher::Teacher(const int& ID, const string& username, const string& password,
-            const string& firstName, const string& coursesTaught,
-            vector<Course*> courses = {})
-    : User(ID, username, password, firstName, lastName), coursesTaught(courses) {}
-
-Teacher::~Teacher() {}
-
-
-vector<Course*> Teacher::getCoursesTaught() const{
-    return coursesTaught;
+bool newTeacher(sqlite3* db,  string username, string password,
+        string firstName, string lastName){
+    newUser(db, username, password, firstName, lastName, 2);
+    int lastUserID = sqlite3_last_insert_rowid(db);
+    char* errMsg;
+    string query = "INSERT INTO Teachers (UserID) VALUES ('" +
+                   to_string(lastUserID)+"');";
+    int result = sqlite3_exec(db, query.c_str(), 0, 0, &errMsg);
+    if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;
+    return result == SQLITE_OK;
 }
 
-bool Teacher::getStudentLectureAttendance(const Lecture& lecture, Student& student) const{
-    return lecture.getAttendanceStatus(student);
+bool deleteTeacher(sqlite3* db, int userID){
+    char* errMsg;
+    string query = "DELETE FROM Teachers WHERE userID=" + to_string(userID) + ";";
+    int result = sqlite3_exec(db, query.c_str(), 0, 0, &errMsg);
+    if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;
+    deleteUser(db, userID);
+    //add grade deletion?
+    return result == SQLITE_OK;
 }
 
-vector<Grade*> Teacher::getStudentCourseGrades(const Student& student,
-        Course& course) const{
-    return student.getCourseGrades(course);
+vector<int> getTaughtCourseIDs(sqlite3* db, int userID){
+    char* errMsg;
+    int courseID, result;
+    string query;
+    vector<int> courseIDs;
+    for (int i = 1; i<=5; i++){
+        query = "SELECT COURSE"+to_string(i)+"ID FROM Teachers WHERE userID =  " + to_string(userID) + ";";
+        result = sqlite3_exec(db, query.c_str(), [](void* data, int argc, char** argv, char** colNames) {
+            // Assuming only one row is returned
+            if (argc > 0) {
+                reinterpret_cast<int*>(data)[0] = atoi(argv[0]);
+            }
+            return 0;
+        }, &courseID, &errMsg);
+        if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;
+        courseIDs.push_back(courseID);
+    }
+    return courseIDs;
 }
 
-bool Teacher::addCourseTaught(Course& course){
-    auto it = find(coursesTaught.begin(), coursesTaught.end(), &course);
-    if (it!=coursesTaught.end()) return false; //course already present
-    coursesTaught.push_back(&course);
-    return true;
+bool addTaughtCourse(sqlite3* db, int userID, int courseID){
+    vector<int> courseIDs = getTaughtCourseIDs(db, userID);
+    int i = 1;
+    while (courseIDs[i-1]>0){
+        if (i==6){
+            cout<<"Courses saturated for this Teacher!"<<endl;
+            return false;
+        }
+        i++;
+    }
+    char* errMsg;
+    string query = "UPDATE Teachers SET Course"+to_string(i)+"ID='" + to_string(courseID) +
+         "' WHERE ID=" + to_string(userID) + ";";
+    int result = sqlite3_exec(db, query.c_str(), 0, 0, &errMsg);
+    if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;
+    return result == SQLITE_OK;
 }
 
-bool Teacher::dropCourseTaught(Course& course){
-    auto it = find(coursesTaught.begin(), coursesTaught.end(), &course);
-    if (it==coursesTaught.end()) return false; //course already absent
-    coursesTaught.erase(it);
-    return true;
-}
-
-bool Teacher::addLecturePresentStudent(Lecture& lecture, Student& student){
-    return lecture.addAttendingStudent(student);
-}
-
-bool Teacher::dropLectureMissingStudent(Lecture& lecture, Student& student){
-    return lecture.addMissingStudent(student);
-}
-
-bool Teacher::addStudentGrade(Student& student, Grade& grade){
-    return student.addGrade(grade);
-}
-
-bool Teacher::modifyStudentGrade(const Student& student, Grade& grade,
-        const string& newIdentifier, const float& newPoints, const float& newOutOf,
-        const float& newCoeff){
-    if (grade.getStudent()!=&student) return false; //trying to modify the wrong grade
-    grade.setIdentifier(newIdentifier);
-    grade.setPoints(newPoints);
-    grade.setOutOf(newOutOf);
-    grade.setCoeff(newCoeff);
-    return true;
-}
-
-bool Teacher::dropStudentGrade(Student& student, Grade& oldGrade){
-    return student.dropGrade(oldGrade);
+bool dropTaughtCourse(sqlite3* db, int userID, int courseID){
+    vector<int> courseIDs = getTaughtCourseIDs(db, userID);
+    int i = 1;
+    while (courseIDs[i-1]!=courseID){
+        if (i==6){
+            cout<<"This Teacher is teaching this course!"<<endl;
+            return false;
+        }
+        i++;
+    }
+    char* errMsg;
+    string query = "UPDATE Teachers SET Course"+to_string(i)+"ID='" + to_string(0) +
+         "' WHERE ID=" + to_string(userID) + ";";
+    int result = sqlite3_exec(db, query.c_str(), 0, 0, &errMsg);
+    if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;
+    return result == SQLITE_OK;
 }

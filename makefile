@@ -16,5 +16,5 @@ clean:
 cleardb:
 	rm data/database.db
 
-main: src/main.cpp src/User.cpp src/Course.cpp src/Lecture.cpp src/Student.cpp
-	$(CC) $(FLAGS) src/main.cpp src/User.cpp src/Course.cpp src/Lecture.cpp src/Student.cpp -o obj/main -lsqlite3
+main: src/main.cpp src/User.cpp src/Course.cpp src/Lecture.cpp src/Student.cpp src/Teacher.cpp
+	$(CC) $(FLAGS) src/main.cpp src/User.cpp src/Course.cpp src/Lecture.cpp src/Student.cpp src/Teacher.cpp -o obj/main -lsqlite3
