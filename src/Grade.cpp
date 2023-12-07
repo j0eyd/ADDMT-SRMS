@@ -1,48 +1,39 @@
 #include "Grade.h"
-#include "Student.h"
-#include "Course.h"
-#include "sqlite3.h"
 
-Grade::Grade(){}
-
-Grade::Grade(Student& student, Course& course, const string& identifier,
-	const float& points, const float& outOf, const float& value,
-	const float& coeff)
-	: student(&student), course(&course), identifier(identifier), points(points),
-	outOf(outOf), value(value), coeff(coeff) {}
-
-Grade::~Grade(){}
-
-Student* Grade::getStudent() const {return student;}
-
-Course* Grade::getCourse() const {return course;}
-
-float Grade::getPoints() const {return points;}
-
-float Grade::getOutOf() const {return outOf;}
-
-float Grade::getValue() const {return value;}
-
-float Grade::getCoeff() const {return coeff;}
-
-string Grade::getIdentifier() const{ return identifier; }
-
-void Grade::setStudent(Student& newStudent) {student = &newStudent;}
-
-void Grade::setCourse(Course& newCourse) {course = &newCourse;}
-
-void Grade::setIdentifier(const string& newIdentifier) {identifier = newIdentifier;};
-
-void Grade::setPoints(const float& newPoints) {
-	points = newPoints;
-	this->setValue();
+bool newGrade(sqlite3* db, int studentID, int courseID, float points, float outOf, float coeff){
+	char* errMsg;
+    string query = "INSERT INTO Grades (points, outOf, value, coeff, studentID, courseID) VALUES ('" +
+                   to_string(points) + "', '"
+                   + to_string(outOf) + "', '"
+                   + to_string(100.0*points/outOf) + "', '"
+                   + to_string(coeff) + "', '"
+				   + to_string(studentID) + "', '"
+                   + to_string(courseID) + "');";
+    int result = sqlite3_exec(db, query.c_str(), 0, 0, &errMsg);
+    if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;
+    return result == SQLITE_OK;
 }
 
-void Grade::setOutOf(const float& newOutOf) {
-	outOf = newOutOf;
-	this->setValue();
+bool deleteGrade(sqlite3* db, int gradeID){
+	char* errMsg;
+    string query = "DELETE FROM Grades WHERE ID=" + to_string(gradeID) + ";";
+    int result = sqlite3_exec(db, query.c_str(), 0, 0, &errMsg);
+    if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;
+    return result == SQLITE_OK;
 }
 
-void Grade::setValue() {value = points/outOf;}
-
-void Grade::setCoeff(const float& newCoeff) {coeff = newCoeff;}
+vector<int> getStudentCourseGradeIDs(sqlite3* db, int studentID, int courseID){
+	char* errMsg;
+	vector<int> gradeIDs;
+	string query = "SELECT ID FROM Grades WHERE studentID = " + to_string(studentID) +
+				" AND courseID = " + to_string(courseID) + ";";
+	int result = sqlite3_exec(db, query.c_str(), [](void* data, int argc, char** argv, char** colNames) {
+        // Assuming only one row is returned
+        if (argc > 0) {
+            static_cast<vector<int>*>(data)->push_back(atoi(argv[0]));
+        }
+        return 0;
+    }, &gradeIDs, &errMsg);
+    if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;
+    return gradeIDs;
+}

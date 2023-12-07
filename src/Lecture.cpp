@@ -3,7 +3,7 @@
 bool newLecture(sqlite3* db, string name, int associatedCourseID){
 	char* errMsg;
 	
-	//get the number of entries in lectures to generate a number for the attendance table
+	//get the number of entries in lectures to generate the index of the attendance table
     int count = 0;
 	string query = "SELECT COUNT(*) FROM Lectures;";
     int result = sqlite3_exec(db, query.c_str(), [](void* data, int argc, char** argv, char** colNames) {
@@ -19,13 +19,23 @@ bool newLecture(sqlite3* db, string name, int associatedCourseID){
 	query = "CREATE TABLE IF NOT EXISTS AttendanceTable" + to_string(count + 1) + " ("
         "StudentID INTEGER PRIMARY KEY,"
         "Attendance BOOLEAN);";
-	const char* c_query = query.c_str();
-	result = sqlite3_exec(db, c_query, 0, 0, &errMsg);
+	result = sqlite3_exec(db, query.c_str(), 0, 0, &errMsg);
     if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;
 	else cout<<"AttendanceTable successfully created"<<endl;
 
-	//add section for filling the attendance table with attendance set to true by default.
+    //insert the course students in the table, mark them as present by default
+    vector<int> studentIDs = getCourseStudentIDs(db, associatedCourseID);
+    for (int ID : studentIDs){
+        query = "INSERT INTO AttendanceTable" + to_string(count + 1) + " (StudentID, Attendance) VALUES ('" +
+            to_string(ID) + "', '" + to_string(1) + "');";
+        result = sqlite3_exec(db, query.c_str(), 0, 0, &errMsg);
+        if (result != SQLITE_OK){
+            cerr << "Error: " << errMsg << endl;
+            return false;
+        }
+    }
 
+    //finally, create the entry in the Lectures table
     query = "INSERT INTO Lectures (NAME, AttendanceTableName, CourseID) VALUES ('" +
                    name + "', 'AttendanceTable"+to_string(count+1)+"', "
 				   + to_string(associatedCourseID) + ");";
@@ -34,7 +44,7 @@ bool newLecture(sqlite3* db, string name, int associatedCourseID){
     return result == SQLITE_OK;
 }
 
-bool deleteLecture(sqlite3* db, int& lectureID){
+bool deleteLecture(sqlite3* db, int lectureID){
 	char* errMsg;
 	string tableName = getAttendanceTableName(db, lectureID);
     string query = "DELETE FROM Lectures WHERE ID=" + to_string(lectureID) + ";";

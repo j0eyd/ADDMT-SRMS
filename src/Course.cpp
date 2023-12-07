@@ -49,6 +49,20 @@ string getCourseName(sqlite3* db, int courseID){
     return courseName;
 }
 
+vector<int> getLecturesIDFromCourse(sqlite3* db, int courseID){
+    char* errMsg;
+    vector<int> lectureIDs;
+    string query = "SELECT ID FROM Lectures WHERE courseID = " + to_string(courseID) + ";";
+    int result = sqlite3_exec(db, query.c_str(), [](void* data, int argc, char** argv, char** colNames) {
+        // Assuming only one row is returned
+        if (argc > 0) {
+            static_cast<vector<int>*>(data)->push_back(atoi(argv[0]));
+        }
+        return 0;
+    }, &lectureIDs, &errMsg);
+    if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;
+    return lectureIDs;
+}
 
 //Mutator method
 bool modifyCourseName(sqlite3* db, int courseID, string newCourseName){
@@ -57,6 +71,25 @@ bool modifyCourseName(sqlite3* db, int courseID, string newCourseName){
     int result = sqlite3_exec(db, query.c_str(), 0, 0, &errMsg);
     if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;
     return result == SQLITE_OK;
+}
+
+vector<int> getCourseStudentIDs(sqlite3* db, int courseID){
+    vector<int> studentIDs;
+    char* errMsg;
+    string query = "SELECT UserID FROM Students WHERE Course1ID = " + to_string(courseID) +
+                   " OR Course2ID = " + to_string(courseID) +
+                   " OR Course3ID = " + to_string(courseID) +
+                   " OR Course4ID = " + to_string(courseID) +
+                   " OR Course5ID = " + to_string(courseID) + ";";
+    int result = sqlite3_exec(db, query.c_str(), [](void* data, int argc, char** argv, char** colNames) {
+        // Assuming only one row is returned
+        if (argc > 0) {
+            static_cast<vector<int>*>(data)->push_back(atoi(argv[0]));
+        }
+        return 0;
+    }, &studentIDs, &errMsg);
+    if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;
+    return studentIDs;
 }
 
 void courseTester(sqlite3* db){
