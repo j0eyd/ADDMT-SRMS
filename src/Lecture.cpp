@@ -36,8 +36,14 @@ bool newLecture(sqlite3* db, string name, int associatedCourseID){
 
 bool deleteLecture(sqlite3* db, int& lectureID){
 	char* errMsg;
+	string tableName = getAttendanceTableName(db, lectureID);
     string query = "DELETE FROM Lectures WHERE ID=" + to_string(lectureID) + ";";
     int result = sqlite3_exec(db, query.c_str(), 0, 0, &errMsg);
+    if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;
+
+	//then, drop the associated attendance table
+	query = "DROP TABLE IF EXISTS "+tableName+";";
+    result = sqlite3_exec(db, query.c_str(), 0, 0, &errMsg);
     if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;
     return result == SQLITE_OK;
 }

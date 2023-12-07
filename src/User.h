@@ -7,8 +7,8 @@
 using namespace std;
 
 // Constructor
-bool newUser(sqlite3* db, string& username,  string& password,
-     string& firstName,  string& lastName, int& type);
+bool newUser(sqlite3* db, string username,  string password,
+     string firstName,  string lastName, int type);
 // Destructor
 bool deleteUser(sqlite3* db, int userID);
 

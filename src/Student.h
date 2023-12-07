@@ -3,35 +3,21 @@
 
 #include "User.h"
 #include "Course.h"
-#include "Grade.h"
-using namespace std;
+#include <vector>
 
-class Student : public User {
-private:
-    string biography;
-    vector<Course*> coursesEnrolled;
-    vector<Grade*> gradeList;
+bool newStudent(sqlite3* db, string biography,  string username, string password,
+    string firstName, string lastName);
 
-public:
-    // Creator
-    Student();
-    Student(const int& ID, const string& username, const string& password, 
-            const string& firstName, const string& lastName, vector<Course*> courses = {},
-            vector<Grade*> grades = {});
-    // Destructor
-    ~Student();
+bool deleteStudent(sqlite3* db, int userID);
 
-    // Accessor Methods
-    vector<Grade*> getCourseGrades(Course& course) const;
-    vector<Course*> getCoursesEnrolled() const;
-    string getBiography() const;
-    // Mutator Methods
+vector<int> getEnrolledCourseIDs(sqlite3* db, int userID);
 
-    bool setBiography(const string& newBiography);
-    bool addEnrolledCourse(Course& course);
-    bool dropEnrolledCourse(Course& course);
-    bool addGrade(Grade& grade);
-    bool dropGrade(Grade& grade);
-};
+string getBiography(sqlite3* db, int userID);
+
+bool modifyBiography(sqlite3* db, int userID, string newBiography);
+
+bool addEnrolledCourse(sqlite3* db, int userID, int courseID);
+
+bool dropEnrolledCourse(sqlite3* db, int userID, int courseID);
 
 #endif // STUDENT_H

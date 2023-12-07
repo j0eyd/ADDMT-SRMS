@@ -1,8 +1,8 @@
 #include "User.h"
 
 //TYPES: 0: Admin | 1: Teacher | 2: Student
-bool newUser(sqlite3* db, string& username, string& password,
-    string& firstName, string& lastName, int& type){
+bool newUser(sqlite3* db, string username, string password,
+    string firstName, string lastName, int type){
     char* errMsg;
     string query = "INSERT INTO User (username, password, firstName, lastName, type) VALUES ('" +
                    username + "', '"
