@@ -128,7 +128,7 @@ bool modifyPassword(sqlite3* db, int userID, string newPassword) {
     return result == SQLITE_OK;
 }
 
-void UserTester(sqlite3* db){
+void userTester(sqlite3* db){
     string username1 = "johndoe23", password1 = "givemeanA+please", firstName1 = "John", lastName1 = "Doe";
     string username2, password2, firstName2, lastName2;
     int type1 = 2;

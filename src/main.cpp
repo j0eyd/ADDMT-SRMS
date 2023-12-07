@@ -1,5 +1,6 @@
 #include "User.h"
 #include "Course.h"
+#include "Lecture.h"
 
 int main() {
     sqlite3 *db;
@@ -9,8 +10,9 @@ int main() {
         cout<<"Can't open database: "<<sqlite3_errmsg(db)<<endl;
         return -1;
     }
-    UserTester(db);
+    userTester(db);
     courseTester(db);
+    lectureTester(db);
     sqlite3_close(db);
     return 0;
 }

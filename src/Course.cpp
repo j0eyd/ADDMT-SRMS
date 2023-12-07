@@ -8,6 +8,7 @@ bool newCourse(sqlite3* db, string& name){
     if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;
     return result == SQLITE_OK;
 }
+
 // Destructor
 bool deleteCourse(sqlite3* db, int courseID){
 	char* errMsg;

@@ -64,6 +64,7 @@ bool createLecturesTable(sqlite3* db){
     const char* query = "CREATE TABLE IF NOT EXISTS Lectures ("
                         "ID INTEGER PRIMARY KEY AUTOINCREMENT,"
                         "name VARCHAR(100),"
+                        "AttendanceTableName VARCHAR(50),"
                         "CourseID INTEGER REFERENCES Courses(ID));";
     int result = sqlite3_exec(db, query, 0, 0, &errMsg);
     if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;

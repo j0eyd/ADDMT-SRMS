@@ -1,42 +1,21 @@
 #ifndef _LECTURE
 #define _LECTURE
 
+#include "Course.h"
 #include <vector>
-#include <iostream>
-#include <unordered_set>
-using namespace std;
 
-// Forward declarations
-class Student;
-class Teacher;
-class Course;
+bool newLecture(sqlite3* db, string name, int associatedCourseID);
+bool deleteLecture(sqlite3* db, int lectureID);
 
-class Lecture {
-private:
-    int ID;
-    string name;
-    Course* associatedCourse;
-    Teacher* teacher;
-    unordered_set<Student*> attendance;
+string getLectureName(sqlite3* db, int lectureID);
+string getAttendanceTableName(sqlite3* db, int lectureID);
+int getLectureCourseID(sqlite3* db, int lectureID);
 
-public:
-    Lecture(); // Constructor
-    ~Lecture(); // Destructor
+//Returns true if the student with the ID studentID attended the lecture with the ID lectureID
+bool getAttendanceStatus(sqlite3* db, int lectureID, int studentID);
 
-    // Accessor methods
-    int getID() const;
-    string getName() const;
-    Course* getAssociatedCourse() const;
-    Teacher* getTeacher() const;
-    bool getAttendanceStatus(Student& student) const;
-
-    // Mutator methods
-    void setID(int id);
-    void setName(string name);
-    void setTeacher(Teacher& newTeacher);
-    bool addAttendingStudent(Student& newStudent);
-    bool addMissingStudent(Student& oldStudent);
-};
-
+bool modifyLectureName(sqlite3* db, int lectureID, string newLectureName);
+bool addAttendingStudent(sqlite3* db, int lectureID, int studentID);
+bool addMissingStudent(sqlite3* db, int lectureID, int studentID);
+void lectureTester(sqlite3* db);
 #endif
-

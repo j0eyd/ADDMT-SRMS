@@ -23,5 +23,5 @@ int getUserType(sqlite3* db, int UserID);
 bool modifyUsername(sqlite3* db, int UserID, string newUsername);
 bool modifyPassword(sqlite3* db, int UserID, string newPassword);
 
-void UserTester(sqlite3* db);
+void userTester(sqlite3* db);
 #endif // USER_H
