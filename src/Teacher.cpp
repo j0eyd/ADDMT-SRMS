@@ -2,7 +2,7 @@
 
 bool newTeacher(sqlite3* db,  string username, string password,
         string firstName, string lastName){
-    newUser(db, username, password, firstName, lastName, 2);
+    newUser(db, username, password, firstName, lastName, 1);
     int lastUserID = sqlite3_last_insert_rowid(db);
     char* errMsg;
     string query = "INSERT INTO Teachers (UserID) VALUES ('" +

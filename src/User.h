@@ -18,6 +18,7 @@ string getUsername(sqlite3* db, int UserID);
 string getPassword(sqlite3* db, int UserID);
 string getFirstName(sqlite3* db, int UserID);
 string getLastName(sqlite3* db, int UserID);
+//0: admin | 1: teacher | 2: Student
 int getUserType(sqlite3* db, int UserID);
 
 bool modifyUsername(sqlite3* db, int UserID, string newUsername);

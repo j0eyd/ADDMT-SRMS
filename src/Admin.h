@@ -1,29 +1,14 @@
 #ifndef ADMIN_H
 #define ADMIN_H
 
-#include <string>
-#include "Student.h"
+#include "User.h"
+#include "Course.h"
 #include "Teacher.h"
+#include <vector>
 
-class Admin {
-private:
-public:
-    Admin();
+bool newAdmin(sqlite3* db,  string username, string password,
+    string firstName, string lastName);
 
-    void createStudentProfile(const int& ID, const string& username, const string& password, 
-            const string& firstName, const string& lastName);
-    void deleteStudentProfile(Student& oldStudent);
+bool deleteAdmin(sqlite3* db, int userID);
 
-    void createTeacherProfile(const int& ID, const string& username, const string& password, 
-            const string& firstName, const string& lastName);
-    void deleteTeacherProfile(const Teacher& teacher);
-
-    void createCourse(int& ID, const string& name, Teacher& teacher, vector<Lecture*> lectures, vector<Student*>& students);
-    void deleteCourse(const int& ID);
-
-    void modifyStudentGrade(const string& studentId, const string& courseId, float newGrade);
-
-};
-
-#endif // ADMIN_H
-
+#endif
