@@ -1,6 +1,6 @@
-#include "User.h"
-#include "Course.h"
+#include "Teacher.h"
 #include "Lecture.h"
+#include "Grade.h"
 
 int main() {
     sqlite3 *db;

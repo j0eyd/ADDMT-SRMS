@@ -9,20 +9,21 @@ bool deleteGrade(sqlite3* db, int gradeID);
 //returns the IDs of the grades affected to a student for a specific course
 vector<int> getStudentCourseGradeIDs(sqlite3* db, int studentID, int courseID);
 
-    // Student* getStudent() const;
-    // Course* getCourse() const;
-    // string getIdentifier() const;
-    // float getPoints() const;
-    // float getOutOf() const;
-    // float getValue() const;
-    // float getCoeff() const;
+int getGradeStudentID(sqlite3* db, int gradeID);
+int getGradeCourseID(sqlite3* db, int gradeID);
+float getGradePoints(sqlite3* db, int gradeID);
+float getGradeOutOf(sqlite3* db, int gradeID);
+float getGradeValue(sqlite3* db, int gradeID);
+float getGradeCoeff(sqlite3* db, int gradeID);
 
-    // // Mutator methods
-    // void setStudent(Student& student);
-    // void setIdentifier(const string& newIdentifier);
-    // void setPoints(const float& newPoints);
-    // void setOutOf(const float& newOutOf);
-    // void setValue();
-    // void setCoeff(const float& newCoeff);
+bool setGradeStudentID(sqlite3* db, int gradeID, int newStudentID);
+bool setGradeCourseID(sqlite3* db, int gradeID, int newCourseID);
+bool setGradePoints(sqlite3* db, int gradeID, float newPoints);
+bool setGradeOutOf(sqlite3* db, int gradeID, float newOutOf);
+//no need to specify points or outOf, this function simply makes sure that the value is correctly set
+//this function is automatically called after any modification of the grade.
+bool setGradeValue(sqlite3* db, int gradeID);
+bool setGradeCoeff(sqlite3* db, int gradeID, float newCoeff);
+
 
 #endif
