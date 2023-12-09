@@ -1,7 +1,20 @@
 #include "Course.h"
 
+string vect_to_string(vector<int> IDs){
+    string ret = "[";
+    int n = IDs.size();
+    if (IDs.empty()) return "void";
+    for (int i = 0; i<n-1; i++){
+        ret+=to_string(IDs[i]);
+        ret+=", ";
+    }
+    ret += to_string(IDs[n-1]);
+    ret += "]";
+    return ret;
+}
+
 // Constructor
-bool newCourse(sqlite3* db, string& name){
+bool newCourse(sqlite3* db, string name){
 	char* errMsg;
     string query = "INSERT INTO Courses (NAME) VALUES ('" + name + "');";
     int result = sqlite3_exec(db, query.c_str(), 0, 0, &errMsg);
@@ -92,17 +105,27 @@ vector<int> getCourseStudentIDs(sqlite3* db, int courseID){
     return studentIDs;
 }
 
-void courseTester(sqlite3* db){
-	string name1= "MTH 231";
-	if (newCourse(db, name1)) cout<<"New Course created"<<endl;
-	int go;
-	int ID = getCourseID(db, name1);
-	cin>>go;
-	cout<<"ID: "<<ID<<endl;
-	cout<<"Name: "<<getCourseName(db, ID)<<endl;
-	cout<<"Choose a new course name: ";
-	string name2;
-	cin>>name2;
-	modifyCourseName(db, ID, name2);
-	cout<<"New course name: "<<getCourseName(db, ID)<<endl;
+bool courseFillDatabase(sqlite3* db){
+    assert(newCourse(db, "CS361"));
+    assert(newCourse(db, "CS362"));
+    assert(newCourse(db, "CS444"));
+    assert(newCourse(db, "MTH231"));
+    assert(newCourse(db, "CS321"));
+    assert(newCourse(db, "CS372"));
+    assert(newCourse(db, "CS544"));
+    cout<<"Courses inserted\n"<<endl;
+    return true;
+}
+
+bool courseTestDatabase(sqlite3* db){
+    cout<<"Operations on temporary course (ID 2): return the ids of its associated students, ids of its associated lectures, then change its name\n"<<endl;
+    cout<<"Name of temporary course: "<<getCourseName(db, 2)<<endl;
+    cout<<"just to check, id of CS362: "<<getCourseID(db, "CS362")<<endl;
+    cout<<"Associated lectures IDs: \n"<<vect_to_string(getLecturesIDFromCourse(db, 2))<<endl;
+    cout<<"Enrolled Students IDs: \n"<<vect_to_string(getCourseStudentIDs(db, 2))<<endl;
+    cout<<"changing name...\n";
+    assert(modifyCourseName(db, 2, "CS363"));
+    cout<<"New name: "<<getCourseName(db, 2)<<endl;
+    cout<<"Course tests complete.\n"<<endl;
+    return true;
 }
