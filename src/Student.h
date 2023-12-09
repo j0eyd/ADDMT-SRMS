@@ -20,4 +20,7 @@ bool addEnrolledCourse(sqlite3* db, int userID, int courseID);
 
 bool dropEnrolledCourse(sqlite3* db, int userID, int courseID);
 
+bool studentFillDatabase(sqlite3* db);
+
+bool studentTestDatabase(sqlite3* db);
 #endif // STUDENT_H
