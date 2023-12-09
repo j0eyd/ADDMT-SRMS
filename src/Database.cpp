@@ -1,7 +1,4 @@
-#include "lib/sqlite3.h"
-#include <string>
-#include <iostream>
-using namespace std;
+#include "Database.h"
 
 void displayAllTables(sqlite3 *db){
     const char *query = "SELECT name FROM sqlite_master WHERE type='table';";
@@ -37,13 +34,13 @@ bool deleteTable(sqlite3* db, const string& tableName){
 
 bool createUsersTable(sqlite3* db){
     char* errMsg;
-    const char* query = "CREATE TABLE IF NOT EXISTS User ("
+    const char* query = "CREATE TABLE IF NOT EXISTS Users ("
                         "ID INTEGER PRIMARY KEY AUTOINCREMENT,"
                         "username VARCHAR(25) NOT NULL,"
                         "password VARCHAR(25),"
                         "firstName VARCHAR(25),"
                         "lastName VARCHAR(25),"
-                        "Type INT);"; //TYPES: 0: Admin | 1: Teacher | 2: Student
+                        "type INT);"; //TYPES: 0: Admin | 1: Teacher | 2: Student
     int result = sqlite3_exec(db, query, 0, 0, &errMsg);
     if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;
     return result == SQLITE_OK;
@@ -53,7 +50,7 @@ bool createCoursesTable(sqlite3* db){
     char* errMsg;
     const char* query = "CREATE TABLE IF NOT EXISTS Courses ("
                         "ID INTEGER PRIMARY KEY AUTOINCREMENT,"
-                        "NAME VARCHAR(100));";
+                        "name VARCHAR(100));";
     int result = sqlite3_exec(db, query, 0, 0, &errMsg);
     if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;
     return result == SQLITE_OK;
@@ -64,8 +61,8 @@ bool createLecturesTable(sqlite3* db){
     const char* query = "CREATE TABLE IF NOT EXISTS Lectures ("
                         "ID INTEGER PRIMARY KEY AUTOINCREMENT,"
                         "name VARCHAR(100),"
-                        "AttendanceTableName VARCHAR(50),"
-                        "CourseID INTEGER REFERENCES Courses(ID));";
+                        "attendanceTableName VARCHAR(50),"
+                        "courseID INTEGER REFERENCES Courses(ID));";
     int result = sqlite3_exec(db, query, 0, 0, &errMsg);
     if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;
     return result == SQLITE_OK;
@@ -118,22 +115,18 @@ bool createGradesTable(sqlite3* db){
 }
 
 
-int main(){
-    //INITIALIZATION
-    sqlite3 *db;
-    //open the database or create it if it doesn't exist
-    int rc = sqlite3_open("data/database.db", &db);
-    if (rc != SQLITE_OK){
-        cout<<"Can't open database: "<<sqlite3_errmsg(db)<<endl;
-        return -1;
-    }
-    //create tables
-    if (createUsersTable(db)) cout<<"ok1"<<endl;
-    if (createCoursesTable(db)) cout<<"ok2"<<endl;
-    if (createStudentsTable(db)) cout<<"ok3"<<endl;
-    if (createTeachersTable(db)) cout<<"ok4"<<endl;
-    if (createGradesTable(db)) cout<<"ok5"<<endl;
-    if (createLecturesTable(db)) cout<<"ok6"<<endl;
-    sqlite3_close(db);
-    return 0;
+bool createTables(sqlite3 *db){
+    assert(createUsersTable(db));
+    cout<<"Users table created."<<endl;
+    assert(createCoursesTable(db));
+    cout<<"Courses table created."<<endl;
+    assert(createStudentsTable(db));
+    cout<<"Students table created."<<endl;
+    assert(createTeachersTable(db));
+    cout<<"Teachers table created."<<endl;
+    assert (createGradesTable(db));
+    cout<<"Grades table created."<<endl;
+    assert(createLecturesTable(db));
+    cout<<"Lectures table created."<<endl;
+    return true;
 }

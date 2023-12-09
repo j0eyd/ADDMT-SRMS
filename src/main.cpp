@@ -1,6 +1,17 @@
 #include "Teacher.h"
 #include "Lecture.h"
 #include "Grade.h"
+#include "Database.h"
+
+bool fillDatabase(sqlite3 *db){
+    assert(userFillDatabase(db));
+    return true;
+}
+
+bool testDatabase(sqlite3* db){
+    assert(userTestDatabase(db));
+    return true;
+}
 
 int main() {
     sqlite3 *db;
@@ -10,9 +21,9 @@ int main() {
         cout<<"Can't open database: "<<sqlite3_errmsg(db)<<endl;
         return -1;
     }
-    userTester(db);
-    courseTester(db);
-    lectureTester(db);
-    sqlite3_close(db);
+    assert(createTables(db));
+    assert(fillDatabase(db));
+    assert(testDatabase(db));
+    cout<<"done"<<endl;
     return 0;
 }

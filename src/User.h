@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include <cassert>
 #include "lib/sqlite3.h"
 using namespace std;
 
@@ -24,5 +25,9 @@ int getUserType(sqlite3* db, int UserID);
 bool modifyUsername(sqlite3* db, int UserID, string newUsername);
 bool modifyPassword(sqlite3* db, int UserID, string newPassword);
 
-void userTester(sqlite3* db);
+//adds some admins to the database - the other types are to be
+//added with designated teacher and student methods
+bool userFillDatabase(sqlite3* db);
+//makes some operations on database users
+bool userTestDatabase(sqlite3* db);
 #endif // USER_H
