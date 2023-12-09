@@ -7,6 +7,7 @@ bool fillDatabase(sqlite3 *db){
     assert(userFillDatabase(db));
     assert(courseFillDatabase(db));
     assert(studentFillDatabase(db));
+    assert(teacherFillDatabase(db));
     return true;
 }
 
@@ -14,6 +15,7 @@ bool testDatabase(sqlite3* db){
     assert(userTestDatabase(db));
     assert(courseTestDatabase(db));
     assert(studentTestDatabase(db));
+    assert(teacherTestDatabase(db));
     return true;
 }
 

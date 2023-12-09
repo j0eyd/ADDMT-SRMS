@@ -127,6 +127,6 @@ bool createTables(sqlite3 *db){
     assert (createGradesTable(db));
     cout<<"Grades table created."<<endl;
     assert(createLecturesTable(db));
-    cout<<"Lectures table created."<<endl;
+    cout<<"Lectures table created.\n"<<endl;
     return true;
 }

@@ -113,7 +113,7 @@ bool courseFillDatabase(sqlite3* db){
     assert(newCourse(db, "CS321"));
     assert(newCourse(db, "CS372"));
     assert(newCourse(db, "CS544"));
-    cout<<"Courses inserted\n"<<endl;
+    cout<<"Courses inserted"<<endl;
     return true;
 }
 

@@ -189,6 +189,6 @@ bool userTestDatabase(sqlite3* db){
     cout<<"Username of user with id "<<ID<<": "<<getUsername(db, ID)<<endl;
     cout<<"Password of user with id "<<ID<<": "<<getPassword(db, ID)<<endl;
     assert(deleteUser(db, ID));
-    cout<<"Temporary user deleted.\n"<<"User tests successful.\n"<<endl;
+    cout<<"Temporary user deleted.\n"<<"User tests successful."<<endl;
     return true;
 }

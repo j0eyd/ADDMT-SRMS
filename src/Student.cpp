@@ -105,8 +105,7 @@ bool dropEnrolledCourse(sqlite3* db, int userID, int courseID){
         i++;
     }
     char* errMsg;
-    string query = "UPDATE Students SET Course"+to_string(i)+"ID='" + to_string(0) +
-         "' WHERE userID=" + to_string(userID) + ";";
+    string query = "UPDATE Students SET Course"+to_string(i)+"ID=NULL WHERE userID=" + to_string(userID) + ";";
     int result = sqlite3_exec(db, query.c_str(), 0, 0, &errMsg);
     if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;
     return result == SQLITE_OK;
@@ -114,7 +113,6 @@ bool dropEnrolledCourse(sqlite3* db, int userID, int courseID){
 
 //fill the student database. Affect courses to students.
 bool studentFillDatabase(sqlite3* db){
-    cout<<"Start Students"<<endl;
     int ID_CS361 = getCourseID(db, "CS361");
     int ID_CS362 = getCourseID(db, "CS362");
     int ID_CS444 = getCourseID(db, "CS444");
@@ -122,10 +120,8 @@ bool studentFillDatabase(sqlite3* db){
     int ID_CS321 = getCourseID(db, "CS321");
     int ID_CS372 = getCourseID(db, "CS372");
     int ID_CS544 = getCourseID(db, "CS544");
-    cout<<"Middle1 Students"<<endl;
     assert(newStudent(db, "I am Joey David, I love coding databases", "davidlhj", "NotApw64*", "Joey", "David"));
     int userID_davidlhj = getUserID(db, "davidlhj");
-    cout<<userID_davidlhj<<endl;
     assert(addEnrolledCourse(db, userID_davidlhj, ID_CS361));
     assert(addEnrolledCourse(db, userID_davidlhj, ID_CS444));
     assert(addEnrolledCourse(db, userID_davidlhj, ID_CS362));
@@ -142,7 +138,6 @@ bool studentFillDatabase(sqlite3* db){
     assert(addEnrolledCourse(db, userID_craetona, ID_CS362));
     assert(addEnrolledCourse(db, userID_craetona, ID_MTH231));
     assert(addEnrolledCourse(db, userID_craetona, ID_CS321));
-    cout<<"Middle2 Students"<<endl;
     assert(newStudent(db, "I am Aic, I love writing documentation", "Aic01", "RandomBsGo!", "Xiaoyu", "Luo"));
     int userID_Aic01 = getUserID(db, "Aic01");
     assert(addEnrolledCourse(db, userID_Aic01, ID_CS361));
