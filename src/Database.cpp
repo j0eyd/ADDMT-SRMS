@@ -103,6 +103,7 @@ bool createGradesTable(sqlite3* db){
     char* errMsg;
     const char* query = "CREATE TABLE IF NOT EXISTS Grades ("
                         "ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+                        "name VARCHAR(50),"
                         "points DECIMAL(10,5),"
                         "outOf DECIMAL(10,5),"
                         "value DECIMAL(10,5),"
