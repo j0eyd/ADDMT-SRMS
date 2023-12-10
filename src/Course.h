@@ -21,7 +21,6 @@ bool deleteCourse(sqlite3* db, int courseID);
 int getCourseID(sqlite3* db, string name);
 string getCourseName(sqlite3* db, int courseID);
 //return all lectures attached to a course
-vector<int> getLecturesIDFromCourse(sqlite3* db, int courseID);
 vector<int> getCourseStudentIDs(sqlite3* db, int courseID);
 
 //Mutator method

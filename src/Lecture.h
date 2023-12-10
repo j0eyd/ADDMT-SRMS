@@ -6,7 +6,7 @@
 
 bool newLecture(sqlite3* db, string name, int associatedCourseID);
 bool deleteLecture(sqlite3* db, int lectureID);
-
+vector<int> getLecturesIDFromCourse(sqlite3* db, int courseID);
 string getLectureName(sqlite3* db, int lectureID);
 string getAttendanceTableName(sqlite3* db, int lectureID);
 int getLectureCourseID(sqlite3* db, int lectureID);
@@ -17,5 +17,8 @@ bool getAttendanceStatus(sqlite3* db, int lectureID, int studentID);
 bool modifyLectureName(sqlite3* db, int lectureID, string newLectureName);
 bool addAttendingStudent(sqlite3* db, int lectureID, int studentID);
 bool addMissingStudent(sqlite3* db, int lectureID, int studentID);
-void lectureTester(sqlite3* db);
+
+bool lectureFillDatabase(sqlite3* db);
+bool lectureTestDatabase(sqlite3* db);
+
 #endif

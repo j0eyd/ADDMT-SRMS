@@ -62,21 +62,6 @@ string getCourseName(sqlite3* db, int courseID){
     return courseName;
 }
 
-vector<int> getLecturesIDFromCourse(sqlite3* db, int courseID){
-    char* errMsg;
-    vector<int> lectureIDs;
-    string query = "SELECT ID FROM Lectures WHERE courseID = " + to_string(courseID) + ";";
-    int result = sqlite3_exec(db, query.c_str(), [](void* data, int argc, char** argv, char** colNames) {
-        // Assuming only one row is returned
-        if (argc > 0) {
-            static_cast<vector<int>*>(data)->push_back(atoi(argv[0]));
-        }
-        return 0;
-    }, &lectureIDs, &errMsg);
-    if (result != SQLITE_OK) cerr << "Error: " << errMsg << endl;
-    return lectureIDs;
-}
-
 //Mutator method
 bool modifyCourseName(sqlite3* db, int courseID, string newCourseName){
 	char* errMsg;
@@ -121,7 +106,6 @@ bool courseTestDatabase(sqlite3* db){
     cout<<"Operations on temporary course (ID 2): return the ids of its associated students, ids of its associated lectures, then change its name\n"<<endl;
     cout<<"Name of temporary course: "<<getCourseName(db, 2)<<endl;
     cout<<"just to check, id of CS362: "<<getCourseID(db, "CS362")<<endl;
-    cout<<"Associated lectures IDs: \n"<<vect_to_string(getLecturesIDFromCourse(db, 2))<<endl;
     cout<<"Enrolled Students IDs: \n"<<vect_to_string(getCourseStudentIDs(db, 2))<<endl;
     cout<<"changing name...\n";
     assert(modifyCourseName(db, 2, "CS363"));
