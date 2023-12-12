@@ -130,6 +130,7 @@
     <ClInclude Include="..\src\Student.h" />
     <ClInclude Include="..\src\Teacher.h" />
     <ClInclude Include="..\src\User.h" />
+    <ClInclude Include="dashboardDup.h" />
     <ClInclude Include="dashboardForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
