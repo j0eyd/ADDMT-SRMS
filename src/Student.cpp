@@ -167,7 +167,7 @@ bool studentTestDatabase(sqlite3* db){
     cout<<"biography of Jogoat99: "<<getBiography(db, userID_Jogoat99)<<endl;
     cout<<"ID of the Courses Jogoat99 attends:\n"<<vect_to_string(getEnrolledCourseIDs(db, userID_Jogoat99))<<endl;
     cout<<"modifying biography...\n";
-    assert(modifyBiography(db, userID_Jogoat99, "Lobotomy brainrot ^^"));
+    assert(modifyBiography(db, userID_Jogoat99, "This is my new biography"));
     cout<<"biography of Jogoat99: "<<getBiography(db, userID_Jogoat99)<<endl;
     cout<<"dropping CS361, enrolling into CS363..."<<endl;
     assert(dropEnrolledCourse(db, userID_Jogoat99, getCourseID(db, "CS361")));
