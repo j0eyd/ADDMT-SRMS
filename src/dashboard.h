@@ -1,5 +1,8 @@
 #pragma once
-#include "user.h"
+#include "User.h"
+#include "Lecture.h"
+#include "Grade.h"
+#include "Teacher.h"
 
 namespace cs361 {
 
