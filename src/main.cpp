@@ -3,6 +3,7 @@
 #include "Grade.h"
 #include "Database.h"
 #include "unistd.h"
+#include <iomanip>
 
 
 
@@ -14,6 +15,19 @@ void teacherCoursesPage(sqlite3* db);
 void teacherGradesPage(sqlite3* db);
 void teacherViewGradesPage(sqlite3* db);
 void teacherAddNewGradePage(sqlite3* db);
+void studentCourseGradePage(sqlite3* db);
+void studentCoursePage(sqlite3* db);
+void studentCoursesPage(sqlite3* db);
+void studentMenu(sqlite3* db);
+void teacherMenu(sqlite3* db);
+void adminMenu(sqlite3* db);
+void setup(sqlite3* db);
+int login(sqlite3* db);
+bool createFillTest(sqlite3* db);
+bool testDatabase(sqlite3* db);
+bool fillDatabase(sqlite3* db);
+bool createTables(sqlite3* db);
+
 
 bool fillDatabase(sqlite3 *db){
     assert(userFillDatabase(db));
@@ -118,15 +132,89 @@ void studentMenu(sqlite3* db){
     cin>>choice;
         switch (choice){
         case 1:
-            //studentCoursesPage(db);
+            studentCoursesPage(db);
             break;
         case 2:
-            //studentProfilePage(db);
+            cout<<"Sorry, but this has not been implemented yet!"<<endl;
+            usleep(2000000);
+            studentMenu(db);
             break;
         default:
             studentMenu(db);
             break;
     }
+}
+
+void studentCoursesPage(sqlite3* db){
+    system ("clear");
+    cout<<"Please select a course to view:\n"<<endl;
+    vector<int> courseIDs = getEnrolledCourseIDs(db, USER_ID);
+    int choice = 0;
+    for (int i = 0; i < courseIDs.size(); i++){
+        cout<<getCourseName(db, courseIDs[i])<<" ("<<i+1<<")"<<endl;
+    }
+    cout<<"\n("<<courseIDs.size()+1<<")"<<" Go back\n"<<endl;
+    cout<<"Enter your choice: ";
+    cin>>choice;
+    if (choice == courseIDs.size()+1){
+        studentMenu(db);
+    }
+    else if (choice > courseIDs.size()+1 || choice < 1){
+        cout<<"Invalid choice, please try again!"<<endl;
+        studentCoursesPage(db);
+    }
+    else {
+        COURSE_ID = courseIDs[choice-1];
+        studentCoursePage(db);
+    }
+}
+
+void studentCoursePage(sqlite3* db){
+    system ("clear");
+    cout<<"Course: "<<getCourseName(db, COURSE_ID)<<"\n"<<endl;
+    cout<<"What would you like to do?\n"<<endl;
+    cout<<"See all grades associated with this course (1)"<<endl;
+    cout<<"See your attendance to all lectures associated with this course (2)"<<endl;
+    cout<<"\nGo back (3)\n"<<endl;
+    cout<<"Enter your choice: ";
+    int choice = 0;
+    cin>>choice;
+    switch (choice){
+        case 1:
+            studentCourseGradePage(db);
+            break;
+        case 2:
+            cout<<"Sorry, but this has not been implemented yet!"<<endl;
+            usleep(3000000);
+            studentCoursePage(db);
+            break;
+        case 3:
+            studentCoursesPage(db);
+            break;
+        default:
+            studentCoursePage(db);
+            break;
+    }
+}
+
+void studentCourseGradePage(sqlite3* db){
+    system("clear");
+    vector<int> gradeIDs = getStudentCourseGradeIDs(db, USER_ID, COURSE_ID);
+    cout << "List of grades for " << getCourseName(db, COURSE_ID) << "\n"
+         << endl;
+    cout << setw(20) << "Grade Name" << setw(10) << "Points" << setw(10) << "OutOf" << setw(10) << "Value" << setw(15) << "Coefficient" << "\n"
+         << endl;
+    for (int gradeID : gradeIDs) {
+        cout << setw(20) << getGradeName(db, gradeID)
+             << setw(10) << getGradePoints(db, gradeID)
+             << setw(10) << getGradeOutOf(db, gradeID)
+             << setw(10) << getGradeValue(db, gradeID)
+             << setw(15) << getGradeCoeff(db, gradeID) << "\n";
+    }
+    cout << "\nPress enter to go back to the Grades page." << endl;
+    cin.ignore();
+    cin.get();
+    studentCoursePage(db);
 }
 
 void teacherCoursesPage(sqlite3* db){
@@ -212,10 +300,6 @@ void teacherGradesPage(sqlite3* db){
             break;
     }
 }
-
-#include <iomanip>
-
-// ... (other includes and function declarations)
 
 void teacherViewGradesPage(sqlite3* db) {
     system("clear");
