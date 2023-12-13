@@ -12,7 +12,6 @@ bool newUser(sqlite3* db, string username,  string password,
      string firstName,  string lastName, int type);
 // Destructor
 bool deleteUser(sqlite3* db, int userID);
-
 // Accessor Methods
 int getUserID(sqlite3* db, string username);
 string getUsername(sqlite3* db, int UserID);
